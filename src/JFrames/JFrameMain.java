@@ -55,10 +55,16 @@ public class JFrameMain extends javax.swing.JFrame {
         });
 
         btnSobre.setText("Sobre");
+        btnSobre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSobreActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastro"));
 
         btnCliente.setText("Cliente");
+        btnCliente.setEnabled(false);
         btnCliente.setMaximumSize(new java.awt.Dimension(60, 23));
         btnCliente.setMinimumSize(new java.awt.Dimension(60, 23));
         btnCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -72,10 +78,15 @@ public class JFrameMain extends javax.swing.JFrame {
         btnPedido.setMaximumSize(new java.awt.Dimension(60, 23));
         btnPedido.setMinimumSize(new java.awt.Dimension(60, 23));
 
-        btnItem.setText("Item");
+        btnItem.setText("Produto");
         btnItem.setEnabled(false);
         btnItem.setMaximumSize(new java.awt.Dimension(60, 23));
         btnItem.setMinimumSize(new java.awt.Dimension(60, 23));
+        btnItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnItemActionPerformed(evt);
+            }
+        });
 
         btnUsuario.setText("Usuário");
         btnUsuario.setEnabled(false);
@@ -128,10 +139,10 @@ public class JFrameMain extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnSobre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(btnSobre, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(btnRelatOrc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -158,6 +169,13 @@ public class JFrameMain extends javax.swing.JFrame {
         frLogin.setModal(true);
         frLogin.setLocationRelativeTo(this);
         frLogin.setVisible(true);
+        
+        // After successful login
+        btnCliente.setEnabled(true);
+        btnItem.setEnabled(true);
+        btnPedido.setEnabled(true);
+        btnRelatOrc.setEnabled(true);
+        btnUsuario.setEnabled(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
@@ -166,6 +184,20 @@ public class JFrameMain extends javax.swing.JFrame {
         frCliente.setLocationRelativeTo(this);
         frCliente.setVisible(true);
     }//GEN-LAST:event_btnClienteActionPerformed
+
+    private void btnSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSobreActionPerformed
+        jdSobre frSobre = new jdSobre(this, rootPaneCheckingEnabled);
+        frSobre.setModal(true);
+        frSobre.setLocationRelativeTo(this);
+        frSobre.setVisible(true);
+    }//GEN-LAST:event_btnSobreActionPerformed
+
+    private void btnItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnItemActionPerformed
+        jdCadastraProduto frProduto = new jdCadastraProduto(this, rootPaneCheckingEnabled);
+        frProduto.setModal(true);
+        frProduto.setLocationRelativeTo(this);
+        frProduto.setVisible(true);
+    }//GEN-LAST:event_btnItemActionPerformed
 
     /**
      * @param args the command line arguments
