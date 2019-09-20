@@ -77,6 +77,11 @@ public class JFrameMain extends javax.swing.JFrame {
         btnPedido.setEnabled(false);
         btnPedido.setMaximumSize(new java.awt.Dimension(60, 23));
         btnPedido.setMinimumSize(new java.awt.Dimension(60, 23));
+        btnPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPedidoActionPerformed(evt);
+            }
+        });
 
         btnItem.setText("Produto");
         btnItem.setEnabled(false);
@@ -92,6 +97,11 @@ public class JFrameMain extends javax.swing.JFrame {
         btnUsuario.setEnabled(false);
         btnUsuario.setMaximumSize(new java.awt.Dimension(60, 23));
         btnUsuario.setMinimumSize(new java.awt.Dimension(60, 23));
+        btnUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsuarioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -128,6 +138,11 @@ public class JFrameMain extends javax.swing.JFrame {
         btnRelatOrc.setEnabled(false);
         btnRelatOrc.setMaximumSize(new java.awt.Dimension(60, 23));
         btnRelatOrc.setMinimumSize(new java.awt.Dimension(60, 23));
+        btnRelatOrc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRelatOrcActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -198,6 +213,27 @@ public class JFrameMain extends javax.swing.JFrame {
         frProduto.setLocationRelativeTo(this);
         frProduto.setVisible(true);
     }//GEN-LAST:event_btnItemActionPerformed
+
+    private void btnPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidoActionPerformed
+        jdCadastraPedido frPedido = new jdCadastraPedido(this, rootPaneCheckingEnabled);
+        frPedido.setModal(true);
+        frPedido.setLocationRelativeTo(this);
+        frPedido.setVisible(true);
+    }//GEN-LAST:event_btnPedidoActionPerformed
+
+    private void btnUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuarioActionPerformed
+        jdCadastraUsuario frUsuario = new jdCadastraUsuario(this, rootPaneCheckingEnabled);
+        frUsuario.setModal(true);
+        frUsuario.setLocationRelativeTo(this);
+        frUsuario.setVisible(true);
+    }//GEN-LAST:event_btnUsuarioActionPerformed
+
+    private void btnRelatOrcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatOrcActionPerformed
+        jdRelatorioOrc frRelatOrc = new jdRelatorioOrc(this, rootPaneCheckingEnabled);
+        frRelatOrc.setModal(true);
+        frRelatOrc.setLocationRelativeTo(this);
+        frRelatOrc.setVisible(true);
+    }//GEN-LAST:event_btnRelatOrcActionPerformed
 
     /**
      * @param args the command line arguments

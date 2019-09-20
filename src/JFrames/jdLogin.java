@@ -45,6 +45,11 @@ public class jdLogin extends javax.swing.JDialog {
 
         btnLogar.setText("Logar");
         btnLogar.setPreferredSize(new java.awt.Dimension(73, 23));
+        btnLogar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
         btnCancelar.setPreferredSize(new java.awt.Dimension(73, 23));
@@ -97,6 +102,10 @@ public class jdLogin extends javax.swing.JDialog {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnLogarActionPerformed
 
     /**
      * @param args the command line arguments

@@ -161,6 +161,9 @@
               <Dimension value="[60, 23]"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPedidoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnItem">
           <Properties>
@@ -188,6 +191,9 @@
               <Dimension value="[60, 23]"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUsuarioActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -202,6 +208,9 @@
           <Dimension value="[60, 23]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRelatOrcActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
