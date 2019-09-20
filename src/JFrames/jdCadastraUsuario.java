@@ -11,13 +11,13 @@ import javax.swing.JOptionPane;
  *
  * @author felli
  */
-public class jdCadastraUsuario extends javax.swing.JDialog {
+public class jdCadastraUsuario extends javax.swing.JFrame {
 
     /**
      * Creates new form jdCadastraUsuario
      */
     public jdCadastraUsuario(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+//        super(parent, modal);
         initComponents();
     }
 
@@ -51,6 +51,7 @@ public class jdCadastraUsuario extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastra usuario");
+        setResizable(false);
 
         jLabel3.setText("jLabel3");
         jLabel3.setBorder(new javax.swing.border.MatteBorder(null));
@@ -84,6 +85,11 @@ public class jdCadastraUsuario extends javax.swing.JDialog {
         btnExcluir.setText("Excluir");
 
         btnBuscarUsuario.setText("Buscar usuario");
+        btnBuscarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarUsuarioActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Usuario");
 
@@ -197,6 +203,13 @@ public class jdCadastraUsuario extends javax.swing.JDialog {
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         JOptionPane.showMessageDialog(null, "Operacao realizada com sucesso");
     }//GEN-LAST:event_btnConfirmarActionPerformed
+
+    private void btnBuscarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarUsuarioActionPerformed
+        jdConsulta frConsulta = new jdConsulta(this, rootPaneCheckingEnabled);
+        frConsulta.setModal(true);
+        frConsulta.setLocationRelativeTo(this);
+        frConsulta.setVisible(true);
+    }//GEN-LAST:event_btnBuscarUsuarioActionPerformed
 
     /**
      * @param args the command line arguments

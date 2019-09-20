@@ -11,13 +11,13 @@ import javax.swing.JOptionPane;
  *
  * @author felli
  */
-public class jdCadastraProduto extends javax.swing.JDialog {
+public class jdCadastraProduto extends javax.swing.JFrame {
 
     /**
      * Creates new form jdCadastraProduto
      */
     public jdCadastraProduto(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+//        super(parent, modal);
         initComponents();
     }
 
@@ -52,6 +52,7 @@ public class jdCadastraProduto extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de produto");
+        setResizable(false);
 
         jLabel1.setText("Id");
 
@@ -70,6 +71,11 @@ public class jdCadastraProduto extends javax.swing.JDialog {
         jLabel5.setText("Valor");
 
         btnBuscaItem.setText("Buscar item");
+        btnBuscaItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscaItemActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Descrição:");
 
@@ -190,6 +196,13 @@ public class jdCadastraProduto extends javax.swing.JDialog {
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         JOptionPane.showMessageDialog(null, "Operacao realizada com sucesso");
     }//GEN-LAST:event_btnConfirmarActionPerformed
+
+    private void btnBuscaItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaItemActionPerformed
+        jdConsulta frConsulta = new jdConsulta(this, rootPaneCheckingEnabled);
+        frConsulta.setModal(true);
+        frConsulta.setLocationRelativeTo(this);
+        frConsulta.setVisible(true);
+    }//GEN-LAST:event_btnBuscaItemActionPerformed
 
     /**
      * @param args the command line arguments
