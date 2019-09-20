@@ -202,6 +202,11 @@ public class jdRelatorioOrc extends javax.swing.JDialog {
         btnAlterar.setText("Alterar");
 
         btnConfirmar.setText("Confirmar");
+        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
 
@@ -354,6 +359,10 @@ public class jdRelatorioOrc extends javax.swing.JDialog {
     private void btnGerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarActionPerformed
         JOptionPane.showMessageDialog(null, "Gerado com sucesso");
     }//GEN-LAST:event_btnGerarActionPerformed
+
+    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+        JOptionPane.showMessageDialog(null, "Operacao feita com sucesso");
+    }//GEN-LAST:event_btnConfirmarActionPerformed
 
     /**
      * @param args the command line arguments

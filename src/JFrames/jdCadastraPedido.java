@@ -5,6 +5,8 @@
  */
 package JFrames;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author felli
@@ -89,6 +91,11 @@ public class jdCadastraPedido extends javax.swing.JDialog {
         btnAlterar.setText("Alterar");
 
         btnConfirmar.setText("Confirmar");
+        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -188,6 +195,10 @@ public class jdCadastraPedido extends javax.swing.JDialog {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+        JOptionPane.showMessageDialog(null, "Operacao realizada com sucesso");
+    }//GEN-LAST:event_btnConfirmarActionPerformed
 
     /**
      * @param args the command line arguments

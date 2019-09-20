@@ -6,6 +6,7 @@
 package JFrames;
 
 import javax.swing.ButtonGroup;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -97,6 +98,11 @@ public class jdCadastraCliente extends javax.swing.JDialog {
         btnExcluir.setText("Excluir");
 
         btnConfirmar.setText("Confirmar");
+        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarActionPerformed(evt);
+            }
+        });
 
         btnAlterar.setText("Alterar");
 
@@ -175,6 +181,10 @@ public class jdCadastraCliente extends javax.swing.JDialog {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+        JOptionPane.showMessageDialog(null, "Operacao realizada com sucesso");
+    }//GEN-LAST:event_btnConfirmarActionPerformed
 
     /**
      * @param args the command line arguments

@@ -5,6 +5,8 @@
  */
 package JFrames;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author felli
@@ -60,6 +62,11 @@ public class jdCadastraUsuario extends javax.swing.JDialog {
         jLabel1.setText("Id");
 
         btnConfirmar.setText("Confirmar");
+        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarActionPerformed(evt);
+            }
+        });
 
         txtId.setEnabled(false);
 
@@ -186,6 +193,10 @@ public class jdCadastraUsuario extends javax.swing.JDialog {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+        JOptionPane.showMessageDialog(null, "Operacao realizada com sucesso");
+    }//GEN-LAST:event_btnConfirmarActionPerformed
 
     /**
      * @param args the command line arguments

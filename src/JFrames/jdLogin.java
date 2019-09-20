@@ -5,6 +5,8 @@
  */
 package JFrames;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author felli
@@ -41,6 +43,8 @@ public class jdLogin extends javax.swing.JDialog {
 
         jLabel1.setText("Usuario");
 
+        txtUsuario.setText("admin");
+
         jLabel2.setText("Senha");
 
         btnLogar.setText("Logar");
@@ -58,6 +62,8 @@ public class jdLogin extends javax.swing.JDialog {
                 btnCancelarActionPerformed(evt);
             }
         });
+
+        txtSenha.setText("admin");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -104,6 +110,7 @@ public class jdLogin extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogarActionPerformed
+        JOptionPane.showMessageDialog(null, "Logado com sucesso");
         this.dispose();
     }//GEN-LAST:event_btnLogarActionPerformed
 
