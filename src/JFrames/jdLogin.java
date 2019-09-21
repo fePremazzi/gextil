@@ -110,8 +110,14 @@ public class jdLogin extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogarActionPerformed
-        JOptionPane.showMessageDialog(null, "Logado com sucesso");
-        this.dispose();
+        if (txtSenha.getText().equals(txtUsuario.getText())){
+            JOptionPane.showMessageDialog(null, "Logado com sucesso");
+            this.dispose();
+        }else{
+            JOptionPane.showMessageDialog(null, "Usuario/Senha incorreto.");
+        }
+        
+        
     }//GEN-LAST:event_btnLogarActionPerformed
 
     /**

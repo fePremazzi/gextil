@@ -19,7 +19,10 @@ public class jdCadastraProduto extends javax.swing.JFrame {
     public jdCadastraProduto(java.awt.Frame parent, boolean modal) {
 //        super(parent, modal);
         initComponents();
+        
     }
+    
+    int k =0;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -30,7 +33,7 @@ public class jdCadastraProduto extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtId1 = new javax.swing.JTextField();
+        txtnome = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -39,7 +42,7 @@ public class jdCadastraProduto extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         cbCor = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        txtId2 = new javax.swing.JTextField();
+        txtValor = new javax.swing.JTextField();
         btnBuscaItem = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         btnCadastrar = new javax.swing.JButton();
@@ -53,6 +56,8 @@ public class jdCadastraProduto extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de produto");
         setResizable(false);
+
+        txtnome.setEnabled(false);
 
         jLabel1.setText("Id");
 
@@ -70,6 +75,8 @@ public class jdCadastraProduto extends javax.swing.JFrame {
 
         jLabel5.setText("Valor");
 
+        txtValor.setEnabled(false);
+
         btnBuscaItem.setText("Buscar item");
         btnBuscaItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -80,10 +87,25 @@ public class jdCadastraProduto extends javax.swing.JFrame {
         jLabel6.setText("Descrição:");
 
         btnCadastrar.setText("Cadastrar");
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarActionPerformed(evt);
+            }
+        });
 
         btnEXcluir.setText("Excluir");
+        btnEXcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEXcluirActionPerformed(evt);
+            }
+        });
 
         btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnConfirmar.setText("Confirmar");
         btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
@@ -102,6 +124,7 @@ public class jdCadastraProduto extends javax.swing.JFrame {
         txtDescricao.setColumns(20);
         txtDescricao.setLineWrap(true);
         txtDescricao.setRows(5);
+        txtDescricao.setEnabled(false);
         jScrollPane1.setViewportView(txtDescricao);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -142,13 +165,13 @@ public class jdCadastraProduto extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtId1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtnome, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(cbTamanho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtId2, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(btnBuscaItem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -162,7 +185,7 @@ public class jdCadastraProduto extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(txtId1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtnome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(cbTamanho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -170,7 +193,7 @@ public class jdCadastraProduto extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(cbCor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
-                    .addComponent(txtId2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscaItem))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6)
@@ -194,7 +217,14 @@ public class jdCadastraProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        JOptionPane.showMessageDialog(null, "Operacao realizada com sucesso");
+        if (k % 2 == 0) {
+            JOptionPane.showMessageDialog(null, "Operacao realizada com sucesso");
+            k++;
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencher dados faltantes");
+            k++;
+        }
+        
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void btnBuscaItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaItemActionPerformed
@@ -203,6 +233,24 @@ public class jdCadastraProduto extends javax.swing.JFrame {
         frConsulta.setLocationRelativeTo(this);
         frConsulta.setVisible(true);
     }//GEN-LAST:event_btnBuscaItemActionPerformed
+
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        txtnome.setEnabled(true);
+        txtValor.setEnabled(true);
+        txtDescricao.setEnabled(true);
+    }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void btnEXcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEXcluirActionPerformed
+        txtnome.setEnabled(false);
+        txtValor.setEnabled(false);
+        txtDescricao.setEnabled(false);
+    }//GEN-LAST:event_btnEXcluirActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        txtnome.setEnabled(true);
+        txtValor.setEnabled(true);
+        txtDescricao.setEnabled(true);
+    }//GEN-LAST:event_btnAlterarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -264,7 +312,7 @@ public class jdCadastraProduto extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea txtDescricao;
     private javax.swing.JTextField txtId;
-    private javax.swing.JTextField txtId1;
-    private javax.swing.JTextField txtId2;
+    private javax.swing.JTextField txtValor;
+    private javax.swing.JTextField txtnome;
     // End of variables declaration//GEN-END:variables
 }

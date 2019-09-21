@@ -22,6 +22,8 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
 //        super(parent, modal);
         initComponents();
     }
+    
+    int k = 0;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -64,10 +66,11 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         btnInserir = new javax.swing.JButton();
         btnDeletar = new javax.swing.JButton();
+        btnBuscaOrcamento = new javax.swing.JButton();
         btnFechar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Relaotrio e orcamento");
+        setTitle("Relatório e orçamento");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Relatorio"));
 
@@ -138,16 +141,19 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Orcamento"));
 
         cbClientes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbClientes.setEnabled(false);
 
         jLabel6.setText("Cliente");
 
         cbTipoOrcamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbTipoOrcamento.setEnabled(false);
 
         jLabel2.setText("Tipo");
 
         jLabel5.setText("Produto");
 
         cbProduto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbProduto.setEnabled(false);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -191,16 +197,36 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
 
         txtDataEntrega.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
         txtDataEntrega.setText("dd/MM/yyyy");
+        txtDataEntrega.setEnabled(false);
+
+        txtPedido.setEnabled(false);
 
         jLabel9.setText("Nº do pedido");
 
         jLabel10.setText("Usuario");
 
+        txtUsuario.setEnabled(false);
+
         btnCadastrar.setText("Cadastrar");
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnConfirmar.setText("Confirmar");
         btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
@@ -212,8 +238,18 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
         btnCancelar.setText("Cancelar");
 
         btnInserir.setText("Inserir");
+        btnInserir.setEnabled(false);
 
         btnDeletar.setText("Deletar");
+        btnDeletar.setEnabled(false);
+
+        btnBuscaOrcamento.setText("Busca orçamento");
+        btnBuscaOrcamento.setEnabled(false);
+        btnBuscaOrcamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscaOrcamentoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -273,7 +309,8 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
                         .addComponent(btnConfirmar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addComponent(btnBuscaOrcamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -313,6 +350,8 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
                     .addComponent(btnAlterar)
                     .addComponent(btnConfirmar)
                     .addComponent(btnCancelar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnBuscaOrcamento)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -347,7 +386,7 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnFechar)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -358,11 +397,17 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFecharActionPerformed
 
     private void btnGerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarActionPerformed
-        JOptionPane.showMessageDialog(null, "Gerado com sucesso");
+        if (k % 2 == 0) {
+            JOptionPane.showMessageDialog(null, "Operacao realizada com sucesso");
+            k++;
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencher dados faltantes");
+            k++;
+        }
     }//GEN-LAST:event_btnGerarActionPerformed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        JOptionPane.showMessageDialog(null, "Operacao feita com sucesso");
+        JOptionPane.showMessageDialog(null, "Preencher dados faltantes");
         JFrame frame = new JFrame("InputDialog Example #2");
         int option = JOptionPane.showConfirmDialog(
                 frame,
@@ -375,10 +420,50 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
             frPedido.setLocationRelativeTo(this);
             frPedido.setVisible(true);
         }
-        
+
         this.dispose();
 
     }//GEN-LAST:event_btnConfirmarActionPerformed
+
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        cbClientes.setEnabled(true);
+        cbTipoOrcamento.setEnabled(true);
+        cbProduto.setEnabled(true);
+        txtDataEntrega.setEnabled(true);
+        txtPedido.setEnabled(true);
+        btnInserir.setEnabled(true);
+        btnDeletar.setEnabled(true);
+
+        btnBuscaOrcamento.setEnabled(false);
+    }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void btnBuscaOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaOrcamentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBuscaOrcamentoActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        cbClientes.setEnabled(false);
+        cbTipoOrcamento.setEnabled(false);
+        cbProduto.setEnabled(false);
+        txtDataEntrega.setEnabled(false);
+        txtPedido.setEnabled(false);
+        btnInserir.setEnabled(false);
+        btnDeletar.setEnabled(false);
+
+        btnBuscaOrcamento.setEnabled(true);
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        cbClientes.setEnabled(true);
+        cbTipoOrcamento.setEnabled(true);
+        cbProduto.setEnabled(true);
+        txtDataEntrega.setEnabled(true);
+        txtPedido.setEnabled(true);
+        btnInserir.setEnabled(true);
+        btnDeletar.setEnabled(true);
+
+        btnBuscaOrcamento.setEnabled(true);
+    }//GEN-LAST:event_btnAlterarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -425,6 +510,7 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
+    private javax.swing.JButton btnBuscaOrcamento;
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnConfirmar;

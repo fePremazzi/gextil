@@ -37,11 +37,11 @@ public class jdCadastraCliente extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtId1 = new javax.swing.JTextField();
+        txtNome = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         rbCPF = new javax.swing.JRadioButton();
         rbCNPJ = new javax.swing.JRadioButton();
-        jTextField1 = new javax.swing.JTextField();
+        txtCPFouCNPF = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         btnInserirFoto = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
@@ -61,11 +61,16 @@ public class jdCadastraCliente extends javax.swing.JFrame {
 
         jLabel2.setText("Nome");
 
+        txtNome.setEnabled(false);
+
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Física/Jurídica"));
 
+        rbCPF.setSelected(true);
         rbCPF.setText("CPF");
 
         rbCNPJ.setText("CNPJ");
+
+        txtCPFouCNPF.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -77,7 +82,7 @@ public class jdCadastraCliente extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(rbCNPJ)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCPFouCNPF, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -87,7 +92,7 @@ public class jdCadastraCliente extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbCPF)
                     .addComponent(rbCNPJ)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCPFouCNPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -95,8 +100,14 @@ public class jdCadastraCliente extends javax.swing.JFrame {
         jLabel3.setBorder(new javax.swing.border.MatteBorder(null));
 
         btnInserirFoto.setText("Inserir foto");
+        btnInserirFoto.setEnabled(false);
 
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnConfirmar.setText("Confirmar");
         btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
@@ -106,6 +117,11 @@ public class jdCadastraCliente extends javax.swing.JFrame {
         });
 
         btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -115,8 +131,14 @@ public class jdCadastraCliente extends javax.swing.JFrame {
         });
 
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         btnBusca.setText("Busca cliente");
+        btnBusca.setEnabled(false);
         btnBusca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscaActionPerformed(evt);
@@ -156,7 +178,7 @@ public class jdCadastraCliente extends javax.swing.JFrame {
                             .addGap(18, 18, 18)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtId1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(19, 19, 19))
         );
         layout.setVerticalGroup(
@@ -170,7 +192,7 @@ public class jdCadastraCliente extends javax.swing.JFrame {
                             .addComponent(jLabel1)
                             .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2)
-                            .addComponent(txtId1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -195,7 +217,11 @@ public class jdCadastraCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        JOptionPane.showMessageDialog(null, "Operacao realizada com sucesso");
+        if (rbCNPJ.isSelected()) {
+            JOptionPane.showMessageDialog(null, "Preencher dados faltantes");
+        } else {
+            JOptionPane.showMessageDialog(null, "Operacao realizada com sucesso");
+        }
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
@@ -204,6 +230,26 @@ public class jdCadastraCliente extends javax.swing.JFrame {
         frConsulta.setLocationRelativeTo(this);
         frConsulta.setVisible(true);
     }//GEN-LAST:event_btnBuscaActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        txtNome.setEnabled(true);
+        txtCPFouCNPF.setEnabled(true);
+        btnInserirFoto.setEnabled(true);
+        btnBusca.setEnabled(false);
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        txtNome.setEnabled(false);
+        txtCPFouCNPF.setEnabled(false);
+        btnInserirFoto.setEnabled(false);
+        btnBusca.setEnabled(true);
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        txtNome.setEnabled(true);
+        txtCPFouCNPF.setEnabled(true);
+        btnInserirFoto.setEnabled(true);
+    }//GEN-LAST:event_btnAlterarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -259,10 +305,10 @@ public class jdCadastraCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JRadioButton rbCNPJ;
     private javax.swing.JRadioButton rbCPF;
+    private javax.swing.JTextField txtCPFouCNPF;
     private javax.swing.JTextField txtId;
-    private javax.swing.JTextField txtId1;
+    private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
 }
