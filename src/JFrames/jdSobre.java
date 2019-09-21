@@ -35,6 +35,7 @@ public class jdSobre extends javax.swing.JDialog {
         btnFechar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Sobre");
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/GT_logo_sobre.png"))); // NOI18N
         jLabel1.setText("jLabel1");

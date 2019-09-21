@@ -5,6 +5,7 @@
  */
 package JFrames;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import jdk.nashorn.internal.runtime.regexp.joni.exception.JOniException;
 
@@ -12,13 +13,13 @@ import jdk.nashorn.internal.runtime.regexp.joni.exception.JOniException;
  *
  * @author felli
  */
-public class jdRelatorioOrc extends javax.swing.JDialog {
+public class jdRelatorioOrc extends javax.swing.JFrame {
 
     /**
      * Creates new form jdRelatorio
      */
     public jdRelatorioOrc(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+//        super(parent, modal);
         initComponents();
     }
 
@@ -362,6 +363,21 @@ public class jdRelatorioOrc extends javax.swing.JDialog {
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         JOptionPane.showMessageDialog(null, "Operacao feita com sucesso");
+        JFrame frame = new JFrame("InputDialog Example #2");
+        int option = JOptionPane.showConfirmDialog(
+                frame,
+                "Deseja cadastrar o orcamento como pedido?",
+                "Pedido",
+                JOptionPane.YES_NO_OPTION
+        );
+        if (option == 0) {
+            jdCadastraPedido frPedido = new jdCadastraPedido(this, rootPaneCheckingEnabled);
+            frPedido.setLocationRelativeTo(this);
+            frPedido.setVisible(true);
+        }
+        
+        this.dispose();
+
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     /**

@@ -195,14 +195,12 @@ public class JFrameMain extends javax.swing.JFrame {
 
     private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
         jdCadastraCliente frCliente = new jdCadastraCliente(this, rootPaneCheckingEnabled);
-//        frCliente.setModal(true);
         frCliente.setLocationRelativeTo(this);
         frCliente.setVisible(true);
     }//GEN-LAST:event_btnClienteActionPerformed
 
     private void btnSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSobreActionPerformed
         jdSobre frSobre = new jdSobre(this, rootPaneCheckingEnabled);
-//        frSobre.setModal(true);
         frSobre.setLocationRelativeTo(this);
         frSobre.setVisible(true);
     }//GEN-LAST:event_btnSobreActionPerformed
@@ -215,21 +213,18 @@ public class JFrameMain extends javax.swing.JFrame {
 
     private void btnPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidoActionPerformed
         jdCadastraPedido frPedido = new jdCadastraPedido(this, rootPaneCheckingEnabled);
-//        frPedido.setModal(true);
         frPedido.setLocationRelativeTo(this);
         frPedido.setVisible(true);
     }//GEN-LAST:event_btnPedidoActionPerformed
 
     private void btnUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuarioActionPerformed
         jdCadastraUsuario frUsuario = new jdCadastraUsuario(this, rootPaneCheckingEnabled);
-//        frUsuario.setModal(true);
         frUsuario.setLocationRelativeTo(this);
         frUsuario.setVisible(true);
     }//GEN-LAST:event_btnUsuarioActionPerformed
 
     private void btnRelatOrcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatOrcActionPerformed
         jdRelatorioOrc frRelatOrc = new jdRelatorioOrc(this, rootPaneCheckingEnabled);
-//        frRelatOrc.setModal(true);
         frRelatOrc.setLocationRelativeTo(this);
         frRelatOrc.setVisible(true);
     }//GEN-LAST:event_btnRelatOrcActionPerformed
