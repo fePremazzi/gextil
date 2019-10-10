@@ -18,12 +18,12 @@ import java.sql.Statement;
 public class ConexaoDB {
 
     public Statement getConnections() throws SQLException {
+//        Class.forName("com.mysql.jdbc.Driver"); /* Aqui registra */
         String connectionUrl
                 = "jdbc:sqlserver://localhost:1433;"
                 + "database=gextil;"
                 + "user=sa;"
-                + "password=123456;"
-                + "trustServerCertificate=false;";
+                + "password=123456;";
 
         ResultSet resultSet = null;
 

@@ -5,6 +5,13 @@
  */
 package JFrames;
 
+import DAO.ConexaoDB;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -110,14 +117,42 @@ public class jdLogin extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogarActionPerformed
-        if (txtSenha.getText().equals(txtUsuario.getText())){
-            JOptionPane.showMessageDialog(null, "Logado com sucesso");
-            this.dispose();
-        }else{
-            JOptionPane.showMessageDialog(null, "Usuario/Senha incorreto.");
+//        if (txtSenha.getText().equals(txtUsuario.getText())){
+//            JOptionPane.showMessageDialog(null, "Logado com sucesso");
+//            this.dispose();
+//        }else{
+//            JOptionPane.showMessageDialog(null, "Usuario/Senha incorreto.");
+//        }
+        try {
+            String selectSql = "SELECT *  from tbUsuario;";
+            ConexaoDB stat = new ConexaoDB();
+            ResultSet resultSet = stat.getConnections().executeQuery(selectSql);
+
+            // Print results from select statement
+            while (resultSet.next()) {
+                System.out.println(resultSet.getString("senha") + " " + resultSet.getString(3));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        
-        
+        String original = "fe";
+
+        MessageDigest algorithm;
+        try {
+            algorithm = MessageDigest.getInstance("SHA-1");
+            byte messageDigest[] = algorithm.digest(original.getBytes("UTF-8"));
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : messageDigest) {
+                hexString.append(String.format("%02X", 0xFF & b));
+            }
+            System.err.println(hexString.toString());
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(jdLogin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(jdLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
     }//GEN-LAST:event_btnLogarActionPerformed
 
     /**
