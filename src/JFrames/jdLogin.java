@@ -126,7 +126,7 @@ public class jdLogin extends javax.swing.JDialog {
         try {
             String selectSql = "SELECT *  from tbUsuario;";
             ConexaoDB stat = new ConexaoDB();
-            ResultSet resultSet = stat.getConnections().executeQuery(selectSql);
+            ResultSet resultSet = stat.getConnections().createStatement().executeQuery(selectSql);
 
             // Print results from select statement
             while (resultSet.next()) {

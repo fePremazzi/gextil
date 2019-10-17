@@ -17,7 +17,7 @@ import java.sql.Statement;
  */
 public class ConexaoDB {
 
-    public Statement getConnections() throws SQLException {
+    public Connection getConnections() throws SQLException {
 //        Class.forName("com.mysql.jdbc.Driver"); /* Aqui registra */
         String connectionUrl
                 = "jdbc:sqlserver://localhost:1433;"
@@ -25,10 +25,10 @@ public class ConexaoDB {
                 + "user=sa;"
                 + "password=123456;";
 
-        ResultSet resultSet = null;
+//        ResultSet resultSet = null;
 
         Connection connection = DriverManager.getConnection(connectionUrl);
-        return connection.createStatement();
+        return connection; //.createStatement();
     }
 
 }

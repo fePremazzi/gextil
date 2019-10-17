@@ -9,9 +9,17 @@ package VOs;
  *
  * @author fePremazziNB
  */
-public abstract class PadraoVO {
-    
+public abstract class EntidadeVO {
+
     private int id;
+
+    public EntidadeVO() {
+    }
+
+    public EntidadeVO(int id) {
+        super();
+        this.id = id;
+    }
 
     /**
      * @return the id
@@ -26,7 +34,5 @@ public abstract class PadraoVO {
     public void setId(int id) {
         this.id = id;
     }
-    
-    
-    
+
 }

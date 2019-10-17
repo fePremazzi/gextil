@@ -9,7 +9,7 @@ package VOs;
  *
  * @author fePremazziNB
  */
-public class UsuarioVO extends PadraoVO {
+public class UsuarioVO extends EntidadeVO {
     
     private String nome;
     private String username;

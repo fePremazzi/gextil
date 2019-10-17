@@ -45,8 +45,6 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         cbClientes = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
-        cbTipoOrcamento = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         cbProduto = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -145,11 +143,6 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
 
         jLabel6.setText("Cliente");
 
-        cbTipoOrcamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbTipoOrcamento.setEnabled(false);
-
-        jLabel2.setText("Tipo");
-
         jLabel5.setText("Produto");
 
         cbProduto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -193,7 +186,7 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
 
         txtId.setEnabled(false);
 
-        jLabel8.setText("Data de entrega");
+        jLabel8.setText("Data de emissao");
 
         txtDataEntrega.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
         txtDataEntrega.setText("dd/MM/yyyy");
@@ -266,15 +259,12 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2)
                                     .addComponent(jLabel5))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(cbClientes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(cbTipoOrcamento, javax.swing.GroupLayout.Alignment.LEADING, 0, 161, Short.MAX_VALUE)
-                                            .addComponent(cbProduto, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(cbProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(btnInserir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -320,10 +310,7 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(cbClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbTipoOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(btnInserir))
+                .addComponent(btnInserir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -427,7 +414,6 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         cbClientes.setEnabled(true);
-        cbTipoOrcamento.setEnabled(true);
         cbProduto.setEnabled(true);
         txtDataEntrega.setEnabled(true);
         txtPedido.setEnabled(true);
@@ -443,7 +429,6 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         cbClientes.setEnabled(false);
-        cbTipoOrcamento.setEnabled(false);
         cbProduto.setEnabled(false);
         txtDataEntrega.setEnabled(false);
         txtPedido.setEnabled(false);
@@ -455,7 +440,6 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         cbClientes.setEnabled(true);
-        cbTipoOrcamento.setEnabled(true);
         cbProduto.setEnabled(true);
         txtDataEntrega.setEnabled(true);
         txtPedido.setEnabled(true);
@@ -521,11 +505,9 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
     private javax.swing.JButton btnInserir;
     private javax.swing.JComboBox<String> cbClientes;
     private javax.swing.JComboBox<String> cbProduto;
-    private javax.swing.JComboBox<String> cbTipoOrcamento;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
