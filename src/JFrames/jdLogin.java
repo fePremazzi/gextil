@@ -145,7 +145,7 @@ public class jdLogin extends javax.swing.JDialog {
             for (byte b : messageDigest) {
                 hexString.append(String.format("%02X", 0xFF & b));
             }
-            System.err.println(hexString.toString());
+            //System.err.println(hexString.toString());
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(jdLogin.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedEncodingException ex) {

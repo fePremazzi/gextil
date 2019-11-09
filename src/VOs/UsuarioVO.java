@@ -15,6 +15,28 @@ public class UsuarioVO extends EntidadeVO {
     private String username;
     private String senha;
     private int cargo;
+    private int id_role;
+
+
+
+    public UsuarioVO(String nome, String username, String senha, int cargo, int id_role, int id) {
+        super(id);
+        this.nome = nome;
+        this.username = username;
+        this.senha = senha;
+        this.cargo = cargo;
+        this.id_role = id_role;
+    }
+    
+    public UsuarioVO (){}
+    
+    public int getId_role() {
+        return id_role;
+    }
+
+    public void setId_role(int id_role) {
+        this.id_role = id_role;
+    }
 
     /**
      * @return the nome

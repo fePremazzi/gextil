@@ -5,7 +5,10 @@
  */
 package Service.Controller;
 
+import DAO.UsuarioDAO;
+import Service.Utils.Validacao;
 import VOs.ClienteVO;
+import VOs.UsuarioVO;
 import java.util.List;
 
 /**
@@ -26,7 +29,17 @@ public class UsuarioController {
         return true;
     }
     
-    public ClienteVO consultaPorId(int id){
+    public UsuarioVO verificaUsuario(String username, String senhaTela){
+        
+        try {
+            UsuarioDAO user = new UsuarioDAO();
+            
+            String senhaBanco = user.selecionaPorUsername(username);
+            return Validacao.verificaSenha(senhaTela, senhaBanco);           
+            
+        } catch (Exception e) {
+        }
+        
         return null;
     }
     
