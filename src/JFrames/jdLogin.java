@@ -6,6 +6,9 @@
 package JFrames;
 
 import DAO.ConexaoDB;
+import Service.Controller.UsuarioController;
+import VOs.UsuarioVO;
+import gextil.config;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -50,7 +53,7 @@ public class jdLogin extends javax.swing.JDialog {
 
         jLabel1.setText("Usuario");
 
-        txtUsuario.setText("admin");
+        txtUsuario.setText("fe");
 
         jLabel2.setText("Senha");
 
@@ -70,7 +73,7 @@ public class jdLogin extends javax.swing.JDialog {
             }
         });
 
-        txtSenha.setText("admin");
+        txtSenha.setText("fe");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -117,39 +120,19 @@ public class jdLogin extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogarActionPerformed
-//        if (txtSenha.getText().equals(txtUsuario.getText())){
-//            JOptionPane.showMessageDialog(null, "Logado com sucesso");
-//            this.dispose();
-//        }else{
-//            JOptionPane.showMessageDialog(null, "Usuario/Senha incorreto.");
-//        }
-        try {
-            String selectSql = "SELECT *  from tbUsuario;";
-            ConexaoDB stat = new ConexaoDB();
-            ResultSet resultSet = stat.getConnections().createStatement().executeQuery(selectSql);
+        String usuario = this.txtUsuario.getText();
+        String senhaTela = this.txtSenha.getText();
 
-            // Print results from select statement
-            while (resultSet.next()) {
-                System.out.println(resultSet.getString("senha") + " " + resultSet.getString(3));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        String original = "fe";
-
-        MessageDigest algorithm;
-        try {
-            algorithm = MessageDigest.getInstance("SHA-1");
-            byte messageDigest[] = algorithm.digest(original.getBytes("UTF-8"));
-            StringBuilder hexString = new StringBuilder();
-            for (byte b : messageDigest) {
-                hexString.append(String.format("%02X", 0xFF & b));
-            }
-            //System.err.println(hexString.toString());
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(jdLogin.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(jdLogin.class.getName()).log(Level.SEVERE, null, ex);
+        UsuarioController userCont = new UsuarioController();
+        if (userCont.verificaUsuario(usuario, senhaTela)) {
+            config.currentUser = userCont.consultaPorUsername(usuario);
+            //mostra janela de logado
+            JOptionPane.showMessageDialog(null, "Você está logado como " + config.currentUser.getNome());
+            // this.dispose();
+            this.dispose();
+        } else {
+            config.currentUser = null;
+            JOptionPane.showMessageDialog(null, "Usuario/Senha incorreto.");
         }
 
 

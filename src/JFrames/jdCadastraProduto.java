@@ -228,7 +228,7 @@ public class jdCadastraProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void btnBuscaItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaItemActionPerformed
-        jdConsulta frConsulta = new jdConsulta(this, rootPaneCheckingEnabled);
+        jdConsultaUsuario frConsulta = new jdConsultaUsuario(this, rootPaneCheckingEnabled);
         frConsulta.setModal(true);
         frConsulta.setLocationRelativeTo(this);
         frConsulta.setVisible(true);

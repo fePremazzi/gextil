@@ -5,10 +5,10 @@
         <group>
             <file>file:/C:/ftt-java/gextil/src/JFrames/jdLogin.java</file>
             <file>file:/C:/ftt-java/gextil/src/DAO/Repositorio.java</file>
+            <file>file:/C:/ftt-java/gextil/src/gextil/config.java</file>
             <file>file:/C:/ftt-java/gextil/src/VOs/UsuarioVO.java</file>
             <file>file:/C:/ftt-java/gextil/src/DAO/UsuarioDAO.java</file>
             <file>file:/C:/ftt-java/gextil/src/JFrames/jdCadastraCliente.java</file>
-            <file>file:/C:/ftt-java/gextil/src/DAO/ConexaoDB.java</file>
             <file>file:/C:/ftt-java/gextil/src/JFrames/jdCadastraUsuario.java</file>
             <file>file:/C:/ftt-java/gextil/src/Service/Controller/UsuarioController.java</file>
             <file>file:/C:/ftt-java/gextil/src/VOs/PedidoVO.java</file>

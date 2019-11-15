@@ -5,6 +5,10 @@
  */
 package JFrames;
 
+import Service.Controller.UsuarioController;
+import VOs.UsuarioVO;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,9 +23,11 @@ public class jdCadastraUsuario extends javax.swing.JFrame {
     public jdCadastraUsuario(java.awt.Frame parent, boolean modal) {
 //        super(parent, modal);
         initComponents();
+        UsuarioController usrCont = new UsuarioController();
+        txtId.setText(String.valueOf(usrCont.getNextId()));
     }
 
-    int k = 0;
+    int mode = 0;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -50,16 +56,23 @@ public class jdCadastraUsuario extends javax.swing.JFrame {
         txtSenha = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         cbCargo = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
+        cbRole = new javax.swing.JComboBox<>();
+        jLabelCaminho = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastra usuario");
         setResizable(false);
 
-        jlFoto.setText("jLabel3");
         jlFoto.setBorder(new javax.swing.border.MatteBorder(null));
 
         btnInserirFoto.setText("Inserir foto");
         btnInserirFoto.setEnabled(false);
+        btnInserirFoto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInserirFotoActionPerformed(evt);
+            }
+        });
 
         btnCadastrar.setText("Cadastrar");
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
@@ -122,8 +135,15 @@ public class jdCadastraUsuario extends javax.swing.JFrame {
 
         jLabel6.setText("Cargo");
 
-        cbCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cargo 1", "Cargo 2", "Cargo 3", "Cargo 4" }));
         cbCargo.setEnabled(false);
+
+        jLabel7.setText("Permissao");
+
+        cbRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "admin", "normal" }));
+        cbRole.setEnabled(false);
+
+        jLabelCaminho.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -131,9 +151,13 @@ public class jdCadastraUsuario extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnInserirFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jlFoto, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelCaminho, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -152,21 +176,6 @@ public class jdCadastraUsuario extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cbCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(9, 9, 9)
-                                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(9, 9, 9)
-                                .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
@@ -178,7 +187,26 @@ public class jdCadastraUsuario extends javax.swing.JFrame {
                                 .addGap(159, 159, 159)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnConfirmar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btnConfirmar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cbCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbRole, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(9, 9, 9)
+                                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -186,8 +214,7 @@ public class jdCadastraUsuario extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -204,20 +231,26 @@ public class jdCadastraUsuario extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(cbCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnCadastrar)
-                            .addComponent(btnConfirmar)
-                            .addComponent(btnAlterar)
-                            .addComponent(btnExcluir))
-                        .addGap(13, 13, 13)))
+                            .addComponent(cbCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7)
+                            .addComponent(cbRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jlFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCadastrar)
+                    .addComponent(btnConfirmar)
+                    .addComponent(btnAlterar)
+                    .addComponent(btnExcluir)
+                    .addComponent(jLabelCaminho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(13, 13, 13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnInserirFoto)
                     .addComponent(btnBuscarUsuario))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
+
+        jlFoto.getAccessibleContext().setAccessibleName("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -227,51 +260,109 @@ public class jdCadastraUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        if (k % 2 == 0) {
-            JOptionPane.showMessageDialog(null, "Operacao realizada com sucesso");
-            k++;
-        } else {
-            JOptionPane.showMessageDialog(null, "Preencher dados faltantes");
-            k++;
+
+        UsuarioVO usr = new UsuarioVO(txtNome.getText(), txtUsuario.getText(),
+                txtSenha.getText(), cbCargo.getSelectedIndex(), cbRole.getSelectedIndex());
+
+        switch (mode) {
+            case 0:
+                if (verificaObjeto(usr)) {
+                    UsuarioController usrC = new UsuarioController();
+                    usrC.insere(usr);
+                }
+                break;
+
+            case 1:
+                break;
+
+            case 2:
+                break;
         }
+
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void btnBuscarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarUsuarioActionPerformed
-        jdConsulta frConsulta = new jdConsulta(this, rootPaneCheckingEnabled);
+        UsuarioVO usr = new UsuarioVO();
+        jdConsultaUsuario frConsulta = new jdConsultaUsuario(this, rootPaneCheckingEnabled, usr);
         frConsulta.setModal(true);
         frConsulta.setLocationRelativeTo(this);
         frConsulta.setVisible(true);
     }//GEN-LAST:event_btnBuscarUsuarioActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        mode = 0;
         txtNome.setEnabled(true);
         txtUsuario.setEnabled(true);
         txtSenha.setEnabled(true);
         cbCargo.setEnabled(true);
         btnInserirFoto.setEnabled(true);
+        cbRole.setEnabled(true);
 
         btnBuscarUsuario.setEnabled(false);
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        mode = 1;
         txtNome.setEnabled(false);
         txtUsuario.setEnabled(false);
         txtSenha.setEnabled(false);
         cbCargo.setEnabled(false);
         btnInserirFoto.setEnabled(false);
+        cbRole.setEnabled(false);
 
         btnBuscarUsuario.setEnabled(true);
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        mode = 2;
         txtNome.setEnabled(true);
         txtUsuario.setEnabled(true);
         txtSenha.setEnabled(true);
         cbCargo.setEnabled(true);
         btnInserirFoto.setEnabled(true);
+        cbRole.setEnabled(true);
 
         btnBuscarUsuario.setEnabled(true);
     }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnInserirFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirFotoActionPerformed
+
+        ImageIcon conteudo = null;
+        String caminho = null;
+        JFileChooser jFileChooser = new JFileChooser();
+
+        int ok = jFileChooser.showOpenDialog(null);
+        if (ok == JFileChooser.APPROVE_OPTION) {
+
+            caminho = jFileChooser.getCurrentDirectory().getPath() + "\\" + jFileChooser.getSelectedFile().getName(); // caminho do arquivo
+
+            conteudo = new ImageIcon(caminho);
+
+            jlFoto.setIcon(conteudo);
+            jLabelCaminho.setText(caminho);
+
+//            System.out.println(conteudo);
+        } else {
+            jFileChooser.cancelSelection();
+        }
+
+
+    }//GEN-LAST:event_btnInserirFotoActionPerformed
+
+    private boolean verificaObjeto(UsuarioVO usr) {
+        if (usr.getNome().isEmpty() || usr.getNome() == null) {
+            return false;
+        } else if (usr.getCargo() < 0) {
+            return false;
+        } else if (usr.getId_role() < 0) {
+            return false;
+        } else if (usr.getSenha().isEmpty() || usr.getSenha() == null) {
+            return false;
+        } else if (usr.getUsername().isEmpty() || usr.getUsername() == null) {
+            return false;
+        }
+        return true;
+    }
 
     /**
      * @param args the command line arguments
@@ -324,11 +415,14 @@ public class jdCadastraUsuario extends javax.swing.JFrame {
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnInserirFoto;
     private javax.swing.JComboBox<String> cbCargo;
+    private javax.swing.JComboBox<String> cbRole;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JTextField jLabelCaminho;
     private javax.swing.JLabel jlFoto;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNome;

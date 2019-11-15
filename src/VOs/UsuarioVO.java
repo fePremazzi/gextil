@@ -14,10 +14,16 @@ public class UsuarioVO extends EntidadeVO {
     private String nome;
     private String username;
     private String senha;
-    private int cargo;
-    private int id_role;
+    private int cargo = -1;
+    private int id_role = -1;
 
-
+    public UsuarioVO(String nome, String username, String senha, int cargo, int id_role) {
+        this.nome = nome;
+        this.username = username;
+        this.senha = senha;
+        this.cargo = cargo;
+        this.id_role = id_role;
+    }
 
     public UsuarioVO(String nome, String username, String senha, int cargo, int id_role, int id) {
         super(id);

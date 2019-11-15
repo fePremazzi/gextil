@@ -6,6 +6,7 @@
 
 package JFrames;
 
+import gextil.config;
 import javax.swing.JDialog;
 
 /**
@@ -201,12 +202,14 @@ public class JFrameMain extends javax.swing.JFrame {
         frLogin.setLocationRelativeTo(this);
         frLogin.setVisible(true);
         
-        // After successful login
-        btnCliente.setEnabled(true);
-        btnItem.setEnabled(true);
-        btnPedido.setEnabled(true);
-        btnRelatOrc.setEnabled(true);
-        btnUsuario.setEnabled(true);
+        if(config.currentUser!=null){
+            // After successful login
+            btnCliente.setEnabled(true);
+            btnItem.setEnabled(true);
+            btnPedido.setEnabled(true);
+            btnRelatOrc.setEnabled(true);
+            btnUsuario.setEnabled(true);
+        }        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed

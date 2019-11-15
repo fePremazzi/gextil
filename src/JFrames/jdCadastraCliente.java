@@ -225,7 +225,7 @@ public class jdCadastraCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
-        jdConsulta frConsulta = new jdConsulta(this, rootPaneCheckingEnabled);
+        jdConsultaUsuario frConsulta = new jdConsultaUsuario(this, rootPaneCheckingEnabled);
         frConsulta.setModal(true);
         frConsulta.setLocationRelativeTo(this);
         frConsulta.setVisible(true);
