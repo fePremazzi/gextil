@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package JFrames;
 
 import gextil.config;
@@ -32,8 +31,8 @@ public class JFrameMain extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        btnSobre = new javax.swing.JButton();
+        btnLogin = new javax.swing.JButton();
+        btnDeslogar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         btnCliente = new javax.swing.JButton();
         btnPedido = new javax.swing.JButton();
@@ -42,25 +41,27 @@ public class JFrameMain extends javax.swing.JFrame {
         btnRelatOrc = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu principal");
         setName("jFrameMain"); // NOI18N
         setResizable(false);
 
-        jButton1.setText("Login");
-        jButton1.setMaximumSize(new java.awt.Dimension(60, 23));
-        jButton1.setMinimumSize(new java.awt.Dimension(60, 23));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnLogin.setText("Login");
+        btnLogin.setMaximumSize(new java.awt.Dimension(60, 23));
+        btnLogin.setMinimumSize(new java.awt.Dimension(60, 23));
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnLoginActionPerformed(evt);
             }
         });
 
-        btnSobre.setText("Sobre");
-        btnSobre.addActionListener(new java.awt.event.ActionListener() {
+        btnDeslogar.setText("Deslogar");
+        btnDeslogar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSobreActionPerformed(evt);
+                btnDeslogarActionPerformed(evt);
             }
         });
 
@@ -152,6 +153,16 @@ public class JFrameMain extends javax.swing.JFrame {
 
         jLabel2.setText("GEXTIL");
 
+        jMenu1.setText("Sobre");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -169,9 +180,9 @@ public class JFrameMain extends javax.swing.JFrame {
                     .addComponent(btnRelatOrc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnSobre, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnDeslogar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -181,8 +192,8 @@ public class JFrameMain extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnSobre))
+                            .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnDeslogar))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -196,21 +207,21 @@ public class JFrameMain extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         jdLogin frLogin = new jdLogin(this, rootPaneCheckingEnabled);
         frLogin.setModal(true);
         frLogin.setLocationRelativeTo(this);
         frLogin.setVisible(true);
-        
-        if(config.currentUser!=null){
+
+        if (config.currentUser != null) {
             // After successful login
             btnCliente.setEnabled(true);
             btnItem.setEnabled(true);
             btnPedido.setEnabled(true);
             btnRelatOrc.setEnabled(true);
             btnUsuario.setEnabled(true);
-        }        
-    }//GEN-LAST:event_jButton1ActionPerformed
+        }
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
         jdCadastraCliente frCliente = new jdCadastraCliente(this, rootPaneCheckingEnabled);
@@ -218,11 +229,15 @@ public class JFrameMain extends javax.swing.JFrame {
         frCliente.setVisible(true);
     }//GEN-LAST:event_btnClienteActionPerformed
 
-    private void btnSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSobreActionPerformed
-        jdSobre frSobre = new jdSobre(this, rootPaneCheckingEnabled);
-        frSobre.setLocationRelativeTo(this);
-        frSobre.setVisible(true);
-    }//GEN-LAST:event_btnSobreActionPerformed
+    private void btnDeslogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeslogarActionPerformed
+        config.currentUser = null;
+        
+        btnCliente.setEnabled(false);
+        btnItem.setEnabled(false);
+        btnPedido.setEnabled(false);
+        btnRelatOrc.setEnabled(false);
+        btnUsuario.setEnabled(false);
+    }//GEN-LAST:event_btnDeslogarActionPerformed
 
     private void btnItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnItemActionPerformed
         jdCadastraProduto frProduto = new jdCadastraProduto(this, rootPaneCheckingEnabled);
@@ -247,6 +262,12 @@ public class JFrameMain extends javax.swing.JFrame {
         frRelatOrc.setLocationRelativeTo(this);
         frRelatOrc.setVisible(true);
     }//GEN-LAST:event_btnRelatOrcActionPerformed
+
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        jdSobre frSobre = new jdSobre(this, rootPaneCheckingEnabled);
+        frSobre.setLocationRelativeTo(this);
+        frSobre.setVisible(true);
+    }//GEN-LAST:event_jMenu1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -285,14 +306,16 @@ public class JFrameMain extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCliente;
+    private javax.swing.JButton btnDeslogar;
     private javax.swing.JButton btnItem;
+    private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnPedido;
     private javax.swing.JButton btnRelatOrc;
-    private javax.swing.JButton btnSobre;
     private javax.swing.JButton btnUsuario;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
