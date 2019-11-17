@@ -19,22 +19,25 @@ import java.util.List;
  */
 public class UsuarioController {
 
-    public List<UsuarioVO> selectAll() {
+    public UsuarioVO getById(int id) {
+
+        try {
+            UsuarioDAO usrDao = new UsuarioDAO();
+            return usrDao.getById(id);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public List<UsuarioVO> getAll() {
         List<UsuarioVO> listAll = new ArrayList<UsuarioVO>();
         try {
             UsuarioDAO usrDao = new UsuarioDAO();
-            
-            ResultSet rs = usrDao.getAll();
-            while(rs.next()){
-                listAll.add(new UsuarioVO(rs.getString("nome"), 
-                        rs.getString("username"), 
-                        rs.getString("senha"), 
-                        rs.getInt("id_cargo"), 
-                        rs.getInt("id_role"), 
-                        rs.getInt("id")));
-            }
-            return listAll;
 
+            return usrDao.getAll();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -70,7 +73,15 @@ public class UsuarioController {
     public void atualiza(ClienteVO cliente) {
     }
 
-    public void deletaorId(int id) {
+    public void deletaPorId(int id) {
+        try {
+
+            UsuarioDAO usrDao = new UsuarioDAO();
+            usrDao.deleteById(id);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean verificaUsuario(String username, String senhaTela) {

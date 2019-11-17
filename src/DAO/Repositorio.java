@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import VOs.UsuarioVO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,27 +24,27 @@ public class Repositorio {
     protected String spInsert;
     protected String spSelectAll;
 
-    public ResultSet getAll() throws SQLException {
-
+    public void deleteById(int id) throws SQLException {
         ConexaoDB connection = new ConexaoDB();
         Connection cn = null;
+        String selectSql = "DELETE " + tableName + " WHERE id = ? ;";
 
         try {
-            
             cn = connection.getConnections();
-            PreparedStatement prepareSt = cn.prepareStatement(spSelectAll);
+            PreparedStatement stmt = cn.prepareStatement(selectSql);
 
-            return prepareSt.executeQuery();
+            stmt.setInt(1, id);
+
+            stmt.executeUpdate();
 
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             if (cn != null) {
                 cn.close();
+
             }
         }
-
-        return null;
     }
 
     public int getProximoId() throws SQLException {

@@ -70,11 +70,11 @@
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="5" rowCount="0">
-                <Column editable="true" title="id" type="java.lang.Object"/>
-                <Column editable="true" title="nome" type="java.lang.Object"/>
-                <Column editable="true" title="id_cargo" type="java.lang.Object"/>
-                <Column editable="true" title="username" type="java.lang.Object"/>
-                <Column editable="true" title="id_role" type="java.lang.Object"/>
+                <Column editable="false" title="id" type="java.lang.Object"/>
+                <Column editable="false" title="nome" type="java.lang.Object"/>
+                <Column editable="false" title="id_cargo" type="java.lang.Object"/>
+                <Column editable="false" title="username" type="java.lang.Object"/>
+                <Column editable="false" title="id_role" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -123,6 +123,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Selecionar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSelecionarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnFechar">
       <Properties>

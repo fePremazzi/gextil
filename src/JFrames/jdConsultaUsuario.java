@@ -7,7 +7,9 @@ package JFrames;
 
 import Service.Controller.UsuarioController;
 import VOs.UsuarioVO;
+import gextil.config;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -23,13 +25,19 @@ public class jdConsultaUsuario extends javax.swing.JDialog {
     public jdConsultaUsuario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        jTable1.setRowSelectionAllowed(true);
+        jTable1.setColumnSelectionAllowed(false);
+
     }
 
     public jdConsultaUsuario(java.awt.Frame parent, boolean modal, UsuarioVO usr) {
         super(parent, modal);
         initComponents();
-        UsuarioVO userSelected = usr;
+        userSelected = usr;
         fillTable();
+        jTable1.setRowSelectionAllowed(true);
+        jTable1.setColumnSelectionAllowed(false);
+        
 
     }
 
@@ -59,7 +67,15 @@ public class jdConsultaUsuario extends javax.swing.JDialog {
             new String [] {
                 "id", "nome", "id_cargo", "username", "id_role"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTable1.setColumnSelectionAllowed(true);
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
@@ -75,6 +91,11 @@ public class jdConsultaUsuario extends javax.swing.JDialog {
         jLabel1.setText("Selecione o item desejado da lista de objetos disponíveis:");
 
         btnSelecionar.setText("Selecionar");
+        btnSelecionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelecionarActionPerformed(evt);
+            }
+        });
 
         btnFechar.setText("Fechar");
         btnFechar.addActionListener(new java.awt.event.ActionListener() {
@@ -121,13 +142,31 @@ public class jdConsultaUsuario extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnFecharActionPerformed
 
+    private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarActionPerformed
+        int row = jTable1.getSelectedRow();
+        if (row != -1) {
+            int value = (int) jTable1.getModel().getValueAt(row, 0);
+            UsuarioController usr = new UsuarioController();
+            UsuarioVO user = usr.getById(value);
+            userSelected.setNome(user.getNome());
+            userSelected.setCargo(user.getCargo());
+            userSelected.setId(user.getId());
+            userSelected.setId_role(user.getId_role());
+            userSelected.setSenha(user.getSenha());
+            userSelected.setUsername(user.getUsername());
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione um item para continuar.");
+        }
+    }//GEN-LAST:event_btnSelecionarActionPerformed
+
     private void fillTable() {
         UsuarioController usrC = new UsuarioController();
-        List<UsuarioVO> lista = usrC.selectAll();
+        List<UsuarioVO> lista = usrC.getAll();
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
 
         for (UsuarioVO usr : lista) {
-            Object[] linha = {usr.getId(),usr.getNome(), usr.getCargo(), usr.getUsername(), usr.getId_role()}; //alguma linha
+            Object[] linha = {usr.getId(), usr.getNome(), usr.getCargo(), usr.getUsername(), usr.getId_role()}; //alguma linha
             model.addRow(linha);
         }
     }

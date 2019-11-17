@@ -9,6 +9,9 @@ import VOs.UsuarioVO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -21,6 +24,64 @@ public class UsuarioDAO extends Repositorio {
         spDeleta = "spDeletaUsuario"; // verificar nome da sp
         spInsert = "INSERT INTO gextil.dbo.tbusuario (nome, id_cargo, username, senha, id_role) VALUES (?, ?, ?, ?, ?);";
         spSelectAll = "SELECT * FROM " + tableName + ";";
+    }
+
+    public UsuarioVO getById(int id) {
+        ConexaoDB connection = new ConexaoDB();
+        Connection con = null;
+
+        String sql = "SELECT * FROM " + tableName + " WHERE id = ? ;";
+
+        try {
+            con = connection.getConnections();
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, id);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                return montaVO(rs);
+            }
+
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+
+    }
+
+    public List<UsuarioVO> getAll() throws SQLException {
+
+        ConexaoDB connection = new ConexaoDB();
+        Connection cn = null;
+
+        try {
+
+            cn = connection.getConnections();
+            PreparedStatement prepareSt = cn.prepareStatement(spSelectAll);
+
+            ResultSet rs = prepareSt.executeQuery();
+
+            List<UsuarioVO> listAll = new ArrayList<UsuarioVO>();
+
+            while (rs.next()) {
+                listAll.add(montaVO(rs));
+            }
+
+            return listAll;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cn != null) {
+                cn.close();
+            }
+        }
+
+        return null;
     }
 
     public void insereUsuario(UsuarioVO usr) {
@@ -36,7 +97,7 @@ public class UsuarioDAO extends Repositorio {
             stmt.setString(4, usr.getSenha());
             stmt.setInt(5, usr.getId_role());
 
-            stmt.executeQuery();
+            stmt.executeUpdate();
             con.close();
         } catch (Exception e) {
 //            e.printStackTrace();
@@ -58,12 +119,7 @@ public class UsuarioDAO extends Repositorio {
 
             // Print results from select statement
             while (resultSet.next()) {
-                return montaVO(resultSet.getInt("id"),
-                        resultSet.getString("nome"),
-                        resultSet.getInt("id_cargo"),
-                        resultSet.getString("username"),
-                        resultSet.getString("senha"),
-                        resultSet.getInt("id_role"));
+                return montaVO(resultSet);
             }
             con.close();
         } catch (Exception e) {
@@ -73,9 +129,14 @@ public class UsuarioDAO extends Repositorio {
         return null;
     }
 
-    private UsuarioVO montaVO(int id, String nome, int id_cargo, String username, String senha, int id_role) {
+    private UsuarioVO montaVO(ResultSet rs) throws SQLException {
 
-        return new UsuarioVO(nome, username, senha, id_cargo, id_role, id);
+        return new UsuarioVO(rs.getString("nome"),
+                rs.getString("username"),
+                rs.getString("senha"),
+                rs.getInt("id_cargo"),
+                rs.getInt("id_role"),
+                rs.getInt("id"));
 
     }
 
