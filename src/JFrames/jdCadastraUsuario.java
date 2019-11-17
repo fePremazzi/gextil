@@ -60,6 +60,7 @@ public class jdCadastraUsuario extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         cbRole = new javax.swing.JComboBox<>();
         jLabelCaminho = new javax.swing.JTextField();
+        btnVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastra usuario");
@@ -146,6 +147,14 @@ public class jdCadastraUsuario extends javax.swing.JFrame {
 
         jLabelCaminho.setEnabled(false);
 
+        btnVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/undo.png"))); // NOI18N
+        btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -179,13 +188,18 @@ public class jdCadastraUsuario extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)
+                                .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(18, 18, 18))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnBuscarUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(66, 66, 66)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(16, 16, 16))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnBuscarUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(170, 170, 170)))
+                                .addComponent(btnVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnConfirmar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -248,7 +262,8 @@ public class jdCadastraUsuario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnInserirFoto)
-                    .addComponent(btnBuscarUsuario))
+                    .addComponent(btnBuscarUsuario)
+                    .addComponent(btnVoltar))
                 .addContainerGap())
         );
 
@@ -261,8 +276,8 @@ public class jdCadastraUsuario extends javax.swing.JFrame {
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
 
-        UsuarioVO usr = new UsuarioVO(txtNome.getText(), txtUsuario.getText(),
-                txtSenha.getText(), cbCargo.getSelectedIndex(), cbRole.getSelectedIndex());
+        UsuarioVO usr = new UsuarioVO(txtNome.getText().trim(), txtUsuario.getText().trim(),
+                txtSenha.getText().trim(), cbCargo.getSelectedIndex(), cbRole.getSelectedIndex(), Integer.parseInt(txtId.getText().trim()));
 
         UsuarioController usrC = new UsuarioController();
         switch (mode) {
@@ -280,6 +295,8 @@ public class jdCadastraUsuario extends javax.swing.JFrame {
                 break;
 
             case 2: //Alterar
+                usrC.update(usr);
+                JOptionPane.showMessageDialog(null, "Atualizado com sucesso.");
                 break;
         }
 
@@ -291,7 +308,7 @@ public class jdCadastraUsuario extends javax.swing.JFrame {
         frConsulta.setModal(true);
         frConsulta.setLocationRelativeTo(this);
         frConsulta.setVisible(true);
-        
+
         if (usr.getId() != 0) {
             txtId.setText(String.valueOf(usr.getId()));
             txtNome.setText(usr.getNome());
@@ -312,6 +329,8 @@ public class jdCadastraUsuario extends javax.swing.JFrame {
         btnInserirFoto.setEnabled(true);
         cbRole.setEnabled(true);
 
+        enableBtn(false, true, false);
+
         btnBuscarUsuario.setEnabled(false);
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
@@ -324,6 +343,8 @@ public class jdCadastraUsuario extends javax.swing.JFrame {
         btnInserirFoto.setEnabled(false);
         cbRole.setEnabled(false);
 
+        enableBtn(false, false, true);
+
         btnBuscarUsuario.setEnabled(true);
     }//GEN-LAST:event_btnExcluirActionPerformed
 
@@ -335,6 +356,8 @@ public class jdCadastraUsuario extends javax.swing.JFrame {
         cbCargo.setEnabled(true);
         btnInserirFoto.setEnabled(true);
         cbRole.setEnabled(true);
+
+        enableBtn(true, false, false);
 
         btnBuscarUsuario.setEnabled(true);
     }//GEN-LAST:event_btnAlterarActionPerformed
@@ -355,13 +378,51 @@ public class jdCadastraUsuario extends javax.swing.JFrame {
             jlFoto.setIcon(conteudo);
             jLabelCaminho.setText(caminho);
 
-//            System.out.println(conteudo);
         } else {
             jFileChooser.cancelSelection();
         }
 
 
     }//GEN-LAST:event_btnInserirFotoActionPerformed
+
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        UsuarioController usrCont = new UsuarioController();
+        enableBtn(true, true, true);
+        cleanInputs();
+        enableCbs(false, false);
+        enableInputs(false, false, false, false);
+        this.btnInserirFoto.setEnabled(false);
+
+        txtId.setText(String.valueOf(usrCont.getNextId()));
+    }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void cleanInputs() {
+        txtId.setText("");
+        txtNome.setText("");
+        txtSenha.setText("");
+        txtUsuario.setText("");
+        cbCargo.setSelectedIndex(0);
+        cbRole.setSelectedIndex(0);
+
+    }
+
+    private void enableInputs(boolean txtId, boolean txtNome, boolean txtSenha, boolean txtUsuario) {
+        this.txtId.setEnabled(txtId);
+        this.txtNome.setEnabled(txtNome);
+        this.txtSenha.setEnabled(txtSenha);
+        this.txtUsuario.setEnabled(txtUsuario);
+    }
+
+    private void enableCbs(boolean cbCargo, boolean cbRole) {
+        this.cbCargo.setEnabled(cbCargo);
+        this.cbRole.setEnabled(cbRole);
+    }
+
+    private void enableBtn(boolean btnAlterar, boolean btnCadastrar, boolean btnExcluir) {
+        this.btnAlterar.setEnabled(btnAlterar);
+        this.btnCadastrar.setEnabled(btnCadastrar);
+        this.btnExcluir.setEnabled(btnExcluir);
+    }
 
     private boolean verificaObjeto(UsuarioVO usr) {
         if (usr.getNome().isEmpty() || usr.getNome() == null) {
@@ -428,6 +489,7 @@ public class jdCadastraUsuario extends javax.swing.JFrame {
     private javax.swing.JButton btnConfirmar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnInserirFoto;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JComboBox<String> cbCargo;
     private javax.swing.JComboBox<String> cbRole;
     private javax.swing.JLabel jLabel1;

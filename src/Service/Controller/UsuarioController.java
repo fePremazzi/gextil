@@ -19,6 +19,15 @@ import java.util.List;
  */
 public class UsuarioController {
 
+    public void update(UsuarioVO usr) {
+        try {
+            UsuarioDAO usrDao = new UsuarioDAO();
+            usrDao.update(usr);
+
+        } catch (Exception e) {
+        }
+    }
+
     public UsuarioVO getById(int id) {
 
         try {
@@ -70,15 +79,12 @@ public class UsuarioController {
         }
     }
 
-    public void atualiza(ClienteVO cliente) {
-    }
-
     public void deletaPorId(int id) {
         try {
 
             UsuarioDAO usrDao = new UsuarioDAO();
             usrDao.deleteById(id);
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }

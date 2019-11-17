@@ -26,6 +26,58 @@ public class UsuarioDAO extends Repositorio {
         spSelectAll = "SELECT * FROM " + tableName + ";";
     }
 
+    public void update(UsuarioVO usr) throws SQLException {
+        ConexaoDB connection = new ConexaoDB();
+        Connection con = null;
+
+        String sql;
+        if (usr.getSenha().isEmpty() || usr.getSenha() == null) {
+            sql = "UPDATE " + tableName + " SET nome = ? , "
+                    + "id_cargo = ? , "
+                    + "username = ? , "
+                    + "id_role = ? "
+                    + "WHERE id = ? ;";
+        } else {
+            sql = "UPDATE " + tableName + " SET nome = ? , "
+                    + "id_cargo = ? , "
+                    + "username = ? , "
+                    + "senha = ? , "
+                    + "id_role = ? "
+                    + "WHERE id = ? ;";
+        }
+
+        try {
+            con = connection.getConnections();
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+        if (usr.getSenha().isEmpty() || usr.getSenha() == null) {
+            stmt.setString(1, usr.getNome());
+            stmt.setInt(2, usr.getCargo());
+            stmt.setString(3, usr.getUsername());
+            stmt.setInt(4, usr.getId_role());
+            stmt.setInt(5, usr.getId());
+        } else {
+            stmt.setString(1, usr.getNome());
+            stmt.setInt(2, usr.getCargo());
+            stmt.setString(3, usr.getUsername());
+            stmt.setString(4, usr.getSenha());
+            stmt.setInt(5, usr.getId_role());
+            stmt.setInt(6, usr.getId());
+        }
+
+            
+
+            stmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+                con.close();
+            }
+        }
+
+    }
+
     public UsuarioVO getById(int id) {
         ConexaoDB connection = new ConexaoDB();
         Connection con = null;
