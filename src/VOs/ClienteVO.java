@@ -38,6 +38,14 @@ public class ClienteVO extends EntidadeVO {
     public void setFoto(String foto) {
         this.foto = foto;
     }
+
+    public ClienteVO(String nome, String cpfOuCnpj, String foto, int id) {
+        super(id);
+        this.nome = nome;
+        this.cpfOuCnpj = cpfOuCnpj;
+        this.foto = foto;
+    }
+    
     
     
     

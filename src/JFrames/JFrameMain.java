@@ -6,6 +6,9 @@
 package JFrames;
 
 import gextil.config;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JDialog;
 
 /**
@@ -224,9 +227,13 @@ public class JFrameMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
-        jdCadastraCliente frCliente = new jdCadastraCliente(this, rootPaneCheckingEnabled);
-        frCliente.setLocationRelativeTo(this);
-        frCliente.setVisible(true);
+        try {
+            jdCadastraCliente frCliente = new jdCadastraCliente(this, rootPaneCheckingEnabled);
+            frCliente.setLocationRelativeTo(this);
+            frCliente.setVisible(true);
+        } catch (ParseException ex) {
+            Logger.getLogger(JFrameMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnClienteActionPerformed
 
     private void btnDeslogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeslogarActionPerformed

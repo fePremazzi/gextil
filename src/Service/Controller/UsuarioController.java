@@ -113,8 +113,5 @@ public class UsuarioController {
         return user.selecionaPorUsername(username);
     }
 
-    public List<ClienteVO> consultaTodos() {
-        return null;
-    }
 
 }

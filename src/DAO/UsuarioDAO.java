@@ -23,7 +23,6 @@ public class UsuarioDAO extends Repositorio {
         tableName = "tbUsuario";
         spDeleta = "spDeletaUsuario"; // verificar nome da sp
         spInsert = "INSERT INTO gextil.dbo.tbusuario (nome, id_cargo, username, senha, id_role) VALUES (?, ?, ?, ?, ?);";
-        spSelectAll = "SELECT * FROM " + tableName + ";";
     }
 
     public void update(UsuarioVO usr) throws SQLException {
@@ -50,22 +49,20 @@ public class UsuarioDAO extends Repositorio {
             con = connection.getConnections();
             PreparedStatement stmt = con.prepareStatement(sql);
 
-        if (usr.getSenha().isEmpty() || usr.getSenha() == null) {
-            stmt.setString(1, usr.getNome());
-            stmt.setInt(2, usr.getCargo());
-            stmt.setString(3, usr.getUsername());
-            stmt.setInt(4, usr.getId_role());
-            stmt.setInt(5, usr.getId());
-        } else {
-            stmt.setString(1, usr.getNome());
-            stmt.setInt(2, usr.getCargo());
-            stmt.setString(3, usr.getUsername());
-            stmt.setString(4, usr.getSenha());
-            stmt.setInt(5, usr.getId_role());
-            stmt.setInt(6, usr.getId());
-        }
-
-            
+            if (usr.getSenha().isEmpty() || usr.getSenha() == null) {
+                stmt.setString(1, usr.getNome());
+                stmt.setInt(2, usr.getCargo());
+                stmt.setString(3, usr.getUsername());
+                stmt.setInt(4, usr.getId_role());
+                stmt.setInt(5, usr.getId());
+            } else {
+                stmt.setString(1, usr.getNome());
+                stmt.setInt(2, usr.getCargo());
+                stmt.setString(3, usr.getUsername());
+                stmt.setString(4, usr.getSenha());
+                stmt.setInt(5, usr.getId_role());
+                stmt.setInt(6, usr.getId());
+            }
 
             stmt.executeUpdate();
         } catch (Exception e) {

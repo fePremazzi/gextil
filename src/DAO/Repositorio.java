@@ -22,8 +22,11 @@ public class Repositorio {
     protected String tableName;
     protected String spDeleta;
     protected String spInsert;
-    protected String spSelectAll;
+    protected String spSelectAll = "SELECT * FROM " + tableName + ";";
+    protected String spGetById = "SELECT * FROM " + tableName + " WHERE Id = ? ;";
 
+    
+    
     public void deleteById(int id) throws SQLException {
         ConexaoDB connection = new ConexaoDB();
         Connection cn = null;
