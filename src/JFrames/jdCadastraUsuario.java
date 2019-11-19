@@ -284,9 +284,11 @@ public class jdCadastraUsuario extends javax.swing.JFrame {
             case 0: //Insere
                 if (verificaObjeto(usr)) {
                     usrC.insere(usr);
+                    JOptionPane.showMessageDialog(null, "Cadastrado com sucesso.");
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Preencha os campos em branco antes de continuar.");
                 }
-                JOptionPane.showMessageDialog(null, "Cadastrado com sucesso.");
-                this.dispose();
                 break;
 
             case 1: //Exclui

@@ -14,6 +14,8 @@ public class ClienteVO extends EntidadeVO {
     private String nome;
     private String cpfOuCnpj;
     private String foto;
+    
+    public ClienteVO(){}
 
     public String getNome() {
         return nome;

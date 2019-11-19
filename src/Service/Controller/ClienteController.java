@@ -19,9 +19,10 @@ public class ClienteController {
     public void update(ClienteVO cl) {
         try {
             ClienteDAO clDao = new ClienteDAO();
-//            usrDao.update(cl);
+            clDao.update(cl);
 
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -39,7 +40,7 @@ public class ClienteController {
     }
 
     public List<ClienteVO> getAll() {
-        List<ClienteVO> listAll = new ArrayList<ClienteVO>();
+        List<ClienteVO> listAll = new ArrayList<>();
         try {
             ClienteDAO clDao = new ClienteDAO();
 
@@ -65,9 +66,6 @@ public class ClienteController {
             if (cl != null) {
 
                 ClienteDAO clDao = new ClienteDAO();
-
-//                usuario.setSenha(Validacao.encriptSenha(usuario.getSenha()));
-
                 clDao.insere(cl);
             }
 

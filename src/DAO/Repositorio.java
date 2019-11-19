@@ -22,8 +22,7 @@ public class Repositorio {
     protected String tableName;
     protected String spDeleta;
     protected String spInsert;
-    protected String spSelectAll = "SELECT * FROM " + tableName + ";";
-    protected String spGetById = "SELECT * FROM " + tableName + " WHERE Id = ? ;";
+
 
     
     

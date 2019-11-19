@@ -5,6 +5,8 @@
  */
 package JFrames;
 
+import Service.Controller.ClienteController;
+import VOs.ClienteVO;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.text.ParseException;
@@ -62,6 +64,9 @@ public class jdCadastraCliente extends javax.swing.JFrame {
                 }
             }
         });
+
+        ClienteController clC = new ClienteController();
+        txtId.setText(String.valueOf(clC.getNextId()));
     }
 
     int mode = 0;
@@ -196,8 +201,13 @@ public class jdCadastraCliente extends javax.swing.JFrame {
         });
 
         txtCaminho.setEnabled(false);
+        txtCaminho.setMinimumSize(new java.awt.Dimension(108, 22));
+        txtCaminho.setPreferredSize(new java.awt.Dimension(108, 22));
 
         jlFoto.setBorder(new javax.swing.border.MatteBorder(null));
+        jlFoto.setMaximumSize(new java.awt.Dimension(108, 125));
+        jlFoto.setMinimumSize(new java.awt.Dimension(108, 125));
+        jlFoto.setPreferredSize(new java.awt.Dimension(108, 125));
 
         btnVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/undo.png"))); // NOI18N
         btnVoltar.setText("Voltar");
@@ -213,10 +223,9 @@ public class jdCadastraCliente extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnInserirFoto, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
-                        .addComponent(txtCaminho))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnInserirFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtCaminho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -295,18 +304,53 @@ public class jdCadastraCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-//        if (rbCNPJ.isSelected()) {
-//            JOptionPane.showMessageDialog(null, "Preencher dados faltantes");
-//        } else {
-//            JOptionPane.showMessageDialog(null, "Operacao realizada com sucesso");
-//        }
+        ClienteVO cl = new ClienteVO(txtNome.getText().trim(),
+                txtCpf.getText().trim(),
+                txtCaminho.getText().trim(),
+                Integer.parseInt(txtId.getText().trim()));
+
+        ClienteController clCont = new ClienteController();
+        switch (mode) {
+            case 0: //Insere
+                if (verificaObjeto(cl)) {
+                    clCont.insere(cl);
+                    JOptionPane.showMessageDialog(null, "Cadastrado com sucesso.");
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Preencha os campos em branco antes de continuar.");
+                }
+                break;
+            case 1: //Exclui
+                clCont.deletaPorId(Integer.parseInt(txtId.getText().trim()));
+                JOptionPane.showMessageDialog(null, "Deletado com sucesso");
+                break;
+            case 2: //Alterar
+                clCont.update(cl);
+                JOptionPane.showMessageDialog(null, "Atualizado com sucesso");
+                break;
+            default:
+                break;
+        }
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
-        jdConsultaUsuario frConsulta = new jdConsultaUsuario(this, rootPaneCheckingEnabled);
+        ClienteVO cl = new ClienteVO();
+        
+        jdConsultaCliente frConsulta = new jdConsultaCliente(this, rootPaneCheckingEnabled, cl);
         frConsulta.setModal(true);
         frConsulta.setLocationRelativeTo(this);
         frConsulta.setVisible(true);
+        
+        if (cl.getId() != 0) {
+            txtId.setText(String.valueOf(cl.getId()));
+            txtNome.setText(cl.getNome());
+            txtCaminho.setText(cl.getFoto());
+            if (cl.getCpfOuCnpj().length()>14){
+                rbCNPJ.setSelected(true);
+            }
+            txtCpf.setText(cl.getCpfOuCnpj());
+
+        }
     }//GEN-LAST:event_btnBuscaActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
@@ -337,6 +381,7 @@ public class jdCadastraCliente extends javax.swing.JFrame {
         txtNome.setEnabled(true);
         txtCpf.setEnabled(true);
         btnInserirFoto.setEnabled(true);
+        btnBusca.setEnabled(true);
 
         enableBtn(true, false, false);
 
@@ -363,13 +408,13 @@ public class jdCadastraCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInserirFotoActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
-//        UsuarioController usrCont = new UsuarioController();
+        ClienteController clCont = new ClienteController();
         enableBtn(true, true, true);
         cleanInputs();
         enableInputs(false, false, false, false);
         this.btnInserirFoto.setEnabled(false);
 
-//        txtId.setText(String.valueOf(usrCont.getNextId())); TODO
+        txtId.setText(String.valueOf(clCont.getNextId()));
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void cleanInputs() {
@@ -391,6 +436,17 @@ public class jdCadastraCliente extends javax.swing.JFrame {
         this.btnAlterar.setEnabled(btnAlterar);
         this.btnCadastrar.setEnabled(btnCadastrar);
         this.btnExcluir.setEnabled(btnExcluir);
+    }
+
+    private boolean verificaObjeto(ClienteVO cl) {
+        if (cl.getNome().isEmpty() || cl.getNome() == null) {
+            return false;
+        } else if (cl.getCpfOuCnpj().isEmpty() || cl.getCpfOuCnpj() == null) {
+            return false;
+        } else if (cl.getFoto().isEmpty() || cl.getFoto() == null) {
+            return false;
+        }
+        return true;
     }
 
     /**

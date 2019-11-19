@@ -20,6 +20,18 @@ public class ProdutoVO extends EntidadeVO{
     private double valorUnit;
     private String descricao;
 
+    public ProdutoVO() {
+    }
+
+    public ProdutoVO(String nome, EnunTamanho tamanho, EnunCor cor, double valorUnit, String descricao, int id) {
+        super(id);
+        this.nome = nome;
+        this.tamanho = tamanho;
+        this.cor = cor;
+        this.valorUnit = valorUnit;
+        this.descricao = descricao;
+    }
+
     public String getNome() {
         return nome;
     }

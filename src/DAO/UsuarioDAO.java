@@ -23,9 +23,9 @@ public class UsuarioDAO extends Repositorio {
         tableName = "tbUsuario";
         spDeleta = "spDeletaUsuario"; // verificar nome da sp
         spInsert = "INSERT INTO gextil.dbo.tbusuario (nome, id_cargo, username, senha, id_role) VALUES (?, ?, ?, ?, ?);";
-    }
+}
 
-    public void update(UsuarioVO usr) throws SQLException {
+public void update(UsuarioVO usr) throws SQLException {
         ConexaoDB connection = new ConexaoDB();
         Connection con = null;
 
@@ -106,6 +106,8 @@ public class UsuarioDAO extends Repositorio {
 
         ConexaoDB connection = new ConexaoDB();
         Connection cn = null;
+             String spSelectAll = "SELECT * FROM " + tableName + ";";
+
 
         try {
 

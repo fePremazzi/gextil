@@ -72,6 +72,8 @@ public class ClienteDAO extends Repositorio {
         ConexaoDB connection = new ConexaoDB();
         Connection con = null;
 
+        String spGetById = "SELECT * FROM " + tableName + " WHERE Id = ? ;";
+
         try {
 
             con = connection.getConnections();
@@ -100,6 +102,8 @@ public class ClienteDAO extends Repositorio {
         ConexaoDB connection = new ConexaoDB();
         Connection con = null;
 
+        String spSelectAll = "SELECT * FROM " + tableName + ";";
+
         try {
 
             con = connection.getConnections();
@@ -107,7 +111,7 @@ public class ClienteDAO extends Repositorio {
 
             ResultSet rs = stmt.executeQuery();
 
-            List<ClienteVO> listAll = new ArrayList<ClienteVO>();
+            List<ClienteVO> listAll = new ArrayList<>();
 
             while (rs.next()) {
                 listAll.add(montaVO(rs));

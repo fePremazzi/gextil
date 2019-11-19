@@ -2,7 +2,7 @@ CREATE TABLE tbCliente
 (
 	Id			int IDENTITY(1,1) PRIMARY KEY,
 	Nome		varchar(30) NOT NULL,
-	Cpf_cnpj	varchar(14) NOT NULL,
+	Cpf_cnpj	varchar(30) NOT NULL,
 	Imagem      varchar(max) NOT NUll
 )
 
@@ -14,8 +14,7 @@ CREATE TABLE tbItem
 	Tamanho		varchar(4)   NOT NULL,
 	Cor			varchar(20)  NOT NULL,
 	Valor		decimal(6,2) NOT NULL,
-	Descricao	varchar(30)  NOT NULL,
-	Imagem		varchar(max) NOT NULL
+	Descricao	varchar(max)  NOT NULL,
 )
 
 /************************************************************************/
