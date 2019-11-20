@@ -6,6 +6,8 @@
 package JFrames;
 
 import Service.Controller.ProdutoController;
+import VOs.Enuns.EnunCor;
+import VOs.Enuns.EnunTamanho;
 import VOs.ProdutoVO;
 import javax.swing.JOptionPane;
 
@@ -21,8 +23,11 @@ public class jdCadastraProduto extends javax.swing.JFrame {
     public jdCadastraProduto(java.awt.Frame parent, boolean modal) {
 //        super(parent, modal);
         initComponents();
-
+        ProdutoController prdCont = new ProdutoController();
+        txtId.setText(String.valueOf(prdCont.getNextId()));
     }
+
+    int mode = 0;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -43,8 +48,7 @@ public class jdCadastraProduto extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         cbCor = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        txtValor = new javax.swing.JTextField();
-        btnBuscaItem = new javax.swing.JButton();
+        btnBuscaProduto = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         btnCadastrar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
@@ -53,8 +57,8 @@ public class jdCadastraProduto extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDescricao = new javax.swing.JTextArea();
-        btnAlterar1 = new javax.swing.JButton();
         btnVoltar1 = new javax.swing.JButton();
+        txtValor = new javax.swing.JTextField();
 
         btnVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/undo.png"))); // NOI18N
         btnVoltar.setText("Voltar");
@@ -86,12 +90,11 @@ public class jdCadastraProduto extends javax.swing.JFrame {
 
         jLabel5.setText("Valor");
 
-        txtValor.setEnabled(false);
-
-        btnBuscaItem.setText("Buscar item");
-        btnBuscaItem.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscaProduto.setText("Buscar produto");
+        btnBuscaProduto.setEnabled(false);
+        btnBuscaProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscaItemActionPerformed(evt);
+                btnBuscaProdutoActionPerformed(evt);
             }
         });
 
@@ -138,15 +141,15 @@ public class jdCadastraProduto extends javax.swing.JFrame {
         txtDescricao.setEnabled(false);
         jScrollPane1.setViewportView(txtDescricao);
 
-        btnAlterar1.setText("Buscar produto");
-        btnAlterar1.addActionListener(new java.awt.event.ActionListener() {
+        btnVoltar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/undo.png"))); // NOI18N
+        btnVoltar1.setText("Voltar");
+        btnVoltar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAlterar1ActionPerformed(evt);
+                btnVoltar1ActionPerformed(evt);
             }
         });
 
-        btnVoltar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/undo.png"))); // NOI18N
-        btnVoltar1.setText("Voltar");
+        txtValor.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -172,30 +175,28 @@ public class jdCadastraProduto extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cbTamanho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnBuscaItem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnBuscaProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                            .addComponent(btnAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnConfirmar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnAlterar1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(12, 12, 12)
                                 .addComponent(btnVoltar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -218,8 +219,7 @@ public class jdCadastraProduto extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(cbCor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
-                    .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscaItem))
+                    .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -229,12 +229,12 @@ public class jdCadastraProduto extends javax.swing.JFrame {
                     .addComponent(btnCadastrar)
                     .addComponent(btnAlterar)
                     .addComponent(btnConfirmar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExcluir)
-                    .addComponent(btnAlterar1)
                     .addComponent(btnVoltar1)
-                    .addComponent(btnCancelar))
+                    .addComponent(btnCancelar)
+                    .addComponent(btnBuscaProduto))
                 .addContainerGap())
         );
 
@@ -246,38 +246,72 @@ public class jdCadastraProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+        ProdutoVO prd = new ProdutoVO(txtNome.getText().trim(), EnunTamanho.valueOf(cbTamanho.getSelectedItem().toString()),
+                EnunCor.valueOf(cbCor.getSelectedItem().toString()),
+                Double.parseDouble(txtValor.getText().trim()),
+                txtDescricao.getText().trim(),
+                Integer.parseInt(txtId.getText().trim()));
 
+        ProdutoController prdCont = new ProdutoController();
+        switch (mode) {
+            case 0: //Insere
+                if (verificaObjeto(prd)) {
+                    prdCont.insere(prd);
+                    JOptionPane.showMessageDialog(null, "Cadastrado com sucesso.");
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Preencha os campos em branco antes de continuar.");
+                }
+                break;
+
+            case 1: //Exclui
+                prdCont.deletaPorId(Integer.parseInt(txtId.getText()));
+                JOptionPane.showMessageDialog(null, "Deletado com sucesso.");
+                break;
+
+            case 2: //Alterar
+                prdCont.update(prd);
+                JOptionPane.showMessageDialog(null, "Atualizado com sucesso.");
+                break;
+        }
 
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
-    private void btnBuscaItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaItemActionPerformed
-//        jdConsultaUsuario frConsulta = new jdConsultaUsuario(this, rootPaneCheckingEnabled);
-//        frConsulta.setModal(true);
-//        frConsulta.setLocationRelativeTo(this);
-//        frConsulta.setVisible(true);
-    }//GEN-LAST:event_btnBuscaItemActionPerformed
-
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        txtNome.setEnabled(true);
-        txtValor.setEnabled(true);
-        txtDescricao.setEnabled(true);
+        mode = 0;
+
+        enableInputs(false, true, true, true);
+
+        enableCbs(true, true);
+
+        enableBtn(false, true, false);
+
+        btnBuscaProduto.setEnabled(false);
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        txtNome.setEnabled(false);
-        txtValor.setEnabled(false);
-        txtDescricao.setEnabled(false);
+        mode = 1;
+
+        enableInputs(false, false, false, false);
+
+        enableCbs(false, false);
+
+        enableBtn(false, false, true);
+
+        btnBuscaProduto.setEnabled(true);
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        txtNome.setEnabled(true);
-        txtValor.setEnabled(true);
-        txtDescricao.setEnabled(true);
-    }//GEN-LAST:event_btnAlterarActionPerformed
+        mode = 2;
 
-    private void btnAlterar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterar1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAlterar1ActionPerformed
+        enableInputs(false, true, true, true);
+
+        enableCbs(true, true);
+
+        enableBtn(true, false, false);
+
+        btnBuscaProduto.setEnabled(true);
+    }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         ProdutoController prodCont = new ProdutoController();
@@ -288,6 +322,99 @@ public class jdCadastraProduto extends javax.swing.JFrame {
 
         txtId.setText(String.valueOf(prodCont.getNextId()));
     }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void btnBuscaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaProdutoActionPerformed
+        ProdutoVO prd = new ProdutoVO();
+        jdConsultaProduto frConsulta = new jdConsultaProduto(this, rootPaneCheckingEnabled, prd);
+        frConsulta.setModal(true);
+        frConsulta.setLocationRelativeTo(this);
+        frConsulta.setVisible(true);
+
+        if (prd.getId() != 0) {
+            txtId.setText(String.valueOf(prd.getId()));
+            txtNome.setText(prd.getNome());
+            txtValor.setText(String.valueOf(prd.getValorUnit()));
+            txtDescricao.setText(prd.getDescricao());
+
+            switch (prd.getTamanho()) {
+                case P:
+                    cbTamanho.setSelectedIndex(0);
+                    break;
+                case M:
+                    cbTamanho.setSelectedIndex(1);
+
+                    break;
+                case G:
+                    cbTamanho.setSelectedIndex(2);
+
+                    break;
+                case GG:
+                    cbTamanho.setSelectedIndex(3);
+
+                    break;
+                case GGG:
+                    cbTamanho.setSelectedIndex(4);
+                    break;
+                default:
+                    cbTamanho.setSelectedIndex(0);
+                    break;
+            }
+
+            switch (prd.getCor()) {
+                case Amarelo:
+                    cbCor.setSelectedIndex(0);
+                    break;
+                case Azul:
+                    cbCor.setSelectedIndex(1);
+                    break;
+                case Beje:
+                    cbCor.setSelectedIndex(2);
+                    break;
+                case Branco:
+                    cbCor.setSelectedIndex(3);
+                    break;
+                case Cinza:
+                    cbCor.setSelectedIndex(4);
+                    break;
+                case Marrom:
+                    cbCor.setSelectedIndex(5);
+                    break;
+                case Preto:
+                    cbCor.setSelectedIndex(6);
+                    break;
+                case Rosa:
+                    cbCor.setSelectedIndex(7);
+                    break;
+                case Roxo:
+                    cbCor.setSelectedIndex(8);
+                    break;
+                case Verde:
+                    cbCor.setSelectedIndex(9);
+                    break;
+                case Vermelho:
+                    cbCor.setSelectedIndex(10);
+                    break;
+                case Vinho:
+                    cbCor.setSelectedIndex(11);
+                    break;
+                default:
+                    cbCor.setSelectedIndex(0);
+                    break;
+            }
+
+        }
+    }//GEN-LAST:event_btnBuscaProdutoActionPerformed
+
+    private void btnVoltar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltar1ActionPerformed
+        ProdutoController prodCont = new ProdutoController();
+        enableBtn(true, true, true);
+        cleanInputs();
+        enableCbs(false, false);
+        enableInputs(false, false, false, false);
+        btnBuscaProduto.setEnabled(false);
+
+        txtId.setText(String.valueOf(prodCont.getNextId()));        // TODO add your handling code here:
+    }//GEN-LAST:event_btnVoltar1ActionPerformed
 
     private void cleanInputs() {
         txtId.setText("");
@@ -307,7 +434,7 @@ public class jdCadastraProduto extends javax.swing.JFrame {
     private void enableInputs(boolean txtId, boolean txtDescricao, boolean txtValor, boolean txtNome) {
         this.txtId.setEnabled(txtId);
         this.txtDescricao.setEnabled(txtDescricao);
-        this.txtValor.setEditable(txtValor);
+        this.txtValor.setEnabled(txtValor);
         this.txtNome.setEnabled(txtNome);
     }
 
@@ -378,8 +505,7 @@ public class jdCadastraProduto extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
-    private javax.swing.JButton btnAlterar1;
-    private javax.swing.JButton btnBuscaItem;
+    private javax.swing.JButton btnBuscaProduto;
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnConfirmar;

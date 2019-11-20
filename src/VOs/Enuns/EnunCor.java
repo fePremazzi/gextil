@@ -10,7 +10,6 @@ package VOs.Enuns;
  * @author fePremazziNB
  */
 public enum EnunCor {
-
     Amarelo,
     Azul,
     Beje,
