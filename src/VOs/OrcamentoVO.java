@@ -5,8 +5,7 @@
  */
 package VOs;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
@@ -14,25 +13,36 @@ import java.util.Date;
  */
 public class OrcamentoVO extends EntidadeVO {
     
-    private ClienteVO cliente;
-    private ArrayList<ProdutoVO> listaProds;
+    private int cliente;
     private Date dataEmissao;
-    private UsuarioVO usuario;
+    private int usuario;
+    private double valorTotal;
 
-    public ClienteVO getCliente() {
+    public OrcamentoVO(int cliente, Date dataEmissao, int usuario, double valorTotal, int id) {
+        super(id);
+        this.cliente = cliente;
+        this.dataEmissao = dataEmissao;
+        this.usuario = usuario;
+        this.valorTotal = valorTotal;
+    }
+
+    public OrcamentoVO() {
+    }
+    
+    public double getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(double valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+
+    public int getCliente() {
         return cliente;
     }
 
-    public void setCliente(ClienteVO cliente) {
+    public void setCliente(int cliente) {
         this.cliente = cliente;
-    }
-
-    public ArrayList<ProdutoVO> getListaProds() {
-        return listaProds;
-    }
-
-    public void setListaProds(ArrayList<ProdutoVO> listaProds) {
-        this.listaProds = listaProds;
     }
 
     public Date getDataEmissao() {
@@ -43,11 +53,11 @@ public class OrcamentoVO extends EntidadeVO {
         this.dataEmissao = dataEmissao;
     }
 
-    public UsuarioVO getUsuario() {
+    public int getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(UsuarioVO usuario) {
+    public void setUsuario(int usuario) {
         this.usuario = usuario;
     }
     

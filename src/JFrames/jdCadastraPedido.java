@@ -5,6 +5,8 @@
  */
 package JFrames;
 
+import Service.Controller.PedidoController;
+import VOs.PedidoVO;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,8 +22,6 @@ public class jdCadastraPedido extends javax.swing.JFrame {
 //        super(parent, modal);
         initComponents();
     }
-
-    int k = 0;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -46,7 +46,7 @@ public class jdCadastraPedido extends javax.swing.JFrame {
         cbClientes = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         txtUsername = new javax.swing.JTextField();
-        btnLBuscaPedido = new javax.swing.JButton();
+        btnBuscaPedido = new javax.swing.JButton();
         btnCadastrar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
@@ -54,6 +54,7 @@ public class jdCadastraPedido extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         cbOrcamento = new javax.swing.JComboBox<>();
+        btnVoltar1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastra pedidos");
@@ -93,11 +94,11 @@ public class jdCadastraPedido extends javax.swing.JFrame {
 
         txtUsername.setEnabled(false);
 
-        btnLBuscaPedido.setText("Busca de pedidos");
-        btnLBuscaPedido.setEnabled(false);
-        btnLBuscaPedido.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscaPedido.setText("Busca de pedidos");
+        btnBuscaPedido.setEnabled(false);
+        btnBuscaPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLBuscaPedidoActionPerformed(evt);
+                btnBuscaPedidoActionPerformed(evt);
             }
         });
 
@@ -129,7 +130,7 @@ public class jdCadastraPedido extends javax.swing.JFrame {
             }
         });
 
-        btnCancelar.setText("Cancelar");
+        btnCancelar.setText("Fechar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -141,6 +142,14 @@ public class jdCadastraPedido extends javax.swing.JFrame {
         cbOrcamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbOrcamento.setEnabled(false);
 
+        btnVoltar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/undo.png"))); // NOI18N
+        btnVoltar1.setText("Voltar");
+        btnVoltar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltar1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -150,54 +159,45 @@ public class jdCadastraPedido extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel1)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtPedido)
-                            .addComponent(txtUsername))
-                        .addGap(34, 34, 34)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtDataEmissao, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtDataEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(48, 48, 48)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(cbOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnLBuscaPedido))
-                                    .addComponent(cbClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtPedido)
+                                        .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(23, 23, 23)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbOrcamento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbClientes, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtDataEmissao, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                            .addComponent(txtDataEntrega)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnConfirmar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+                            .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnBuscaPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnVoltar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnConfirmar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(1, 1, 1)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -207,13 +207,15 @@ public class jdCadastraPedido extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtDataEmissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtDataEmissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(txtDataEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -223,17 +225,20 @@ public class jdCadastraPedido extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLBuscaPedido)
                     .addComponent(jLabel8)
                     .addComponent(cbOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCadastrar)
-                    .addComponent(btnExcluir)
-                    .addComponent(btnAlterar)
                     .addComponent(btnConfirmar)
-                    .addComponent(btnCancelar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnAlterar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancelar)
+                    .addComponent(btnVoltar1)
+                    .addComponent(btnExcluir)
+                    .addComponent(btnBuscaPedido))
+                .addContainerGap())
         );
 
         pack();
@@ -244,21 +249,15 @@ public class jdCadastraPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        if (k % 2 == 0) {
-            JOptionPane.showMessageDialog(null, "Operacao realizada com sucesso");
-            k++;
-        } else {
-            JOptionPane.showMessageDialog(null, "Preencher dados faltantes");
-            k++;
-        }
+
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
-    private void btnLBuscaPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLBuscaPedidoActionPerformed
-        jdConsultaUsuario frConsulta = new jdConsultaUsuario(this, rootPaneCheckingEnabled);
-        frConsulta.setModal(true);
-        frConsulta.setLocationRelativeTo(this);
-        frConsulta.setVisible(true);
-    }//GEN-LAST:event_btnLBuscaPedidoActionPerformed
+    private void btnBuscaPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaPedidoActionPerformed
+//        jdConsultaUsuario frConsulta = new jdConsultaUsuario(this, rootPaneCheckingEnabled);
+//        frConsulta.setModal(true);
+//        frConsulta.setLocationRelativeTo(this);
+//        frConsulta.setVisible(true);
+    }//GEN-LAST:event_btnBuscaPedidoActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         cbTipo.setEnabled(true);
@@ -268,7 +267,7 @@ public class jdCadastraPedido extends javax.swing.JFrame {
         cbClientes.setEnabled(true);
         cbOrcamento.setEnabled(true);
 
-        btnLBuscaPedido.setEnabled(false);
+        btnBuscaPedido.setEnabled(false);
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -279,7 +278,7 @@ public class jdCadastraPedido extends javax.swing.JFrame {
         cbClientes.setEnabled(false);
         cbOrcamento.setEnabled(false);
 
-        btnLBuscaPedido.setEnabled(true);
+        btnBuscaPedido.setEnabled(true);
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
@@ -290,8 +289,74 @@ public class jdCadastraPedido extends javax.swing.JFrame {
         cbClientes.setEnabled(true);
         cbOrcamento.setEnabled(true);
 
-        btnLBuscaPedido.setEnabled(true);
+        btnBuscaPedido.setEnabled(true);
     }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnVoltar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltar1ActionPerformed
+        PedidoController pedCont = new PedidoController();
+        enableBtn(true, true, true);
+        cleanInputs();
+        enableCbs(false, false, false);
+        enableInputs(false, false, false, false, false);
+        btnBuscaPedido.setEnabled(false);
+
+        txtId.setText(String.valueOf(pedCont.getNextId()));
+    }//GEN-LAST:event_btnVoltar1ActionPerformed
+
+    private void cleanInputs() {
+        txtId.setText("");
+        txtDataEmissao.setText("");
+        cbTipo.setSelectedIndex(0);
+        txtDataEntrega.setText("");
+        txtPedido.setText("");
+        cbClientes.setSelectedIndex(0);
+        txtUsername.setText("");
+        cbOrcamento.setSelectedIndex(0);
+    }
+
+    private void enableCbs(boolean cbTipo, boolean cbClientes, boolean cbOrcamento) {
+        this.cbTipo.setEnabled(cbTipo);
+        this.cbClientes.setEnabled(cbClientes);
+        this.cbOrcamento.setEnabled(cbOrcamento);
+    }
+
+    private void enableInputs(boolean txtId,
+            boolean txtDataEmi,
+            boolean txtDataEnt,
+            boolean txtPedido,
+            boolean txtUsername) {
+        this.txtId.setEnabled(txtId);
+        this.txtDataEmissao.setEnabled(txtDataEmi);
+        this.txtDataEntrega.setEnabled(txtDataEnt);
+        this.txtPedido.setEnabled(txtPedido);
+        this.txtUsername.setEnabled(txtUsername);
+
+    }
+
+    private void enableBtn(boolean btnAlterar, boolean btnCadastrar, boolean btnExcluir) {
+        this.btnAlterar.setEnabled(btnAlterar);
+        this.btnCadastrar.setEnabled(btnCadastrar);
+        this.btnExcluir.setEnabled(btnExcluir);
+    }
+
+    private boolean verificaObjeto(PedidoVO ped) {
+        if (ped.getTipo() == null) {
+            return false;
+        } else if (ped.getDataEmissao() == null || ped.getDataEmissao().toString().isEmpty()) {
+            return false;
+        } else if (ped.getDataEntrega() == null || ped.getDataEntrega().toString().isEmpty()) {
+            return false;
+        } else if (ped.getNumPedido() <= 0) {
+            return false;
+        } else if (ped.getCliente() <= 0) {
+            return false;
+        } else if (ped.getUsuario() <= 0) {
+            return false;
+        } else if (ped.getOrcamento() <= 0) {
+            return false;
+        }
+        return true;
+    }
 
     /**
      * @param args the command line arguments
@@ -337,11 +402,12 @@ public class jdCadastraPedido extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
+    private javax.swing.JButton btnBuscaPedido;
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnConfirmar;
     private javax.swing.JButton btnExcluir;
-    private javax.swing.JButton btnLBuscaPedido;
+    private javax.swing.JButton btnVoltar1;
     private javax.swing.JComboBox<String> cbClientes;
     private javax.swing.JComboBox<String> cbOrcamento;
     private javax.swing.JComboBox<String> cbTipo;

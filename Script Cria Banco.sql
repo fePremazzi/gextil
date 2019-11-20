@@ -33,13 +33,15 @@ CREATE TABLE tbUsuario
 CREATE TABLE tbPedido
 (
 	Id						int IDENTITY(1,1) PRIMARY KEY,
-	Num_cliente				varchar(15),
+	Num_pedido				varchar(15),
 	Tipo					varchar(15) NOT NULL,
 	Data_cadastro			datetime	 NOT NULL,
 	Data_entrega			datetime	 NOT NULL,
 	Id_cliente				int,
-	CONSTRAINT fk_CliPed	FOREIGN KEY(Id_cliente) REFERENCES tbCliente(Id),
 	Id_usuario				int,
+	Id_orcamento            int,
+	CONSTRAINT fk_OrcPed    FOREIGN KEY(Id_orcamento) REFERENCES tbOrcamento(Id),
+	CONSTRAINT fk_CliPed	FOREIGN KEY(Id_cliente) REFERENCES tbCliente(Id),
 	CONSTRAINT fk_UsrPed	FOREIGN KEY(Id_usuario) REFERENCES tbUsuario(Id)
 )
 
@@ -47,13 +49,14 @@ CREATE TABLE tbPedido
 CREATE TABLE tbOrcamento
 (
 	Id						int IDENTITY(1,1) PRIMARY KEY,
-	Tipo					varchar(15) NOT NULL,
+	--Tipo					varchar(15) NOT NULL,
 	Data_cadastro			datetime NOT NULL,
-	Data_entrega			datetime NOT NULL,
-	Valida					bit NOT NULL,
+	--Data_entrega			datetime NOT NULL,
+	--Valida					bit NOT NULL,
 	Id_Cliente				int,
-	CONSTRAINT fk_CliOrc	FOREIGN KEY(Id_Cliente) REFERENCES tbCliente(Id),
 	Id_Usuario				int,
+	Valor_total             decimal(6,2) NOT NULL,
+	CONSTRAINT fk_CliOrc	FOREIGN KEY(Id_Cliente) REFERENCES tbCliente(Id),
 	CONSTRAINT fk_UsrOrc	FOREIGN KEY(Id_Usuario) REFERENCES tbUsuario(Id)
 )
 
@@ -65,7 +68,7 @@ CREATE TABLE tbOrcItm
 	CONSTRAINT fk_OrcExpI FOREIGN KEY(Id_Orcamento) REFERENCES tbOrcamento(IdOrcamento),
 	Id_Item					int,
 	CONSTRAINT fk_OrcItm FOREIGN KEY(Id_Item) REFERENCES tbItem(IdItem),
-	Desconto_Item			int,
+	Valor_item			    int,
 	Qtd_Item				int NOT NULL
 )
 

@@ -6,7 +6,7 @@
 package VOs;
 
 import VOs.Enuns.EnunTipoPedido;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
@@ -18,9 +18,25 @@ public class PedidoVO extends EntidadeVO {
     private Date dataEmissao;
     private Date dataEntrega;
     private int numPedido;
-    private ClienteVO cliente;
-    private UsuarioVO usuario;
-    private OrcamentoVO orcamento;
+    private int cliente;
+    private int usuario;
+    private int orcamento;
+
+    public PedidoVO(){
+    }
+
+    public PedidoVO(EnunTipoPedido tipo, Date dataEmissao, Date dataEntrega, int numPedido, int cliente, int usuario, int orcamento, int id) {
+        super(id);
+        this.tipo = tipo;
+        this.dataEmissao = dataEmissao;
+        this.dataEntrega = dataEntrega;
+        this.numPedido = numPedido;
+        this.cliente = cliente;
+        this.usuario = usuario;
+        this.orcamento = orcamento;
+    }
+    
+    
 
     public EnunTipoPedido getTipo() {
         return tipo;
@@ -54,27 +70,27 @@ public class PedidoVO extends EntidadeVO {
         this.numPedido = numPedido;
     }
 
-    public ClienteVO getCliente() {
+    public int getCliente() {
         return cliente;
     }
 
-    public void setCliente(ClienteVO cliente) {
+    public void setCliente(int cliente) {
         this.cliente = cliente;
     }
 
-    public UsuarioVO getUsuario() {
+    public int getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(UsuarioVO usuario) {
+    public void setUsuario(int usuario) {
         this.usuario = usuario;
     }
 
-    public OrcamentoVO getOrcamento() {
+    public int getOrcamento() {
         return orcamento;
     }
 
-    public void setOrcamento(OrcamentoVO orcamento) {
+    public void setOrcamento(int orcamento) {
         this.orcamento = orcamento;
     }
     
