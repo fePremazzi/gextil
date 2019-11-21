@@ -62,6 +62,16 @@ public class UsuarioController {
         }
         return -1;
     }
+    
+    public UsuarioVO getByName(String username) {
+        try {
+            UsuarioDAO usrDao = new UsuarioDAO();
+            return usrDao.selecionaPorUsername(username);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public void insere(UsuarioVO usuario) {
         try {

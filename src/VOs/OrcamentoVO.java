@@ -28,6 +28,8 @@ public class OrcamentoVO extends EntidadeVO {
 
     public OrcamentoVO() {
     }
+
+
     
     public double getValorTotal() {
         return valorTotal;

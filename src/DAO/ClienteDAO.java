@@ -97,6 +97,36 @@ public class ClienteDAO extends Repositorio {
 
         return null;
     }
+    
+    public ClienteVO getByName(String name) throws SQLException {
+        ConexaoDB connection = new ConexaoDB();
+        Connection con = null;
+
+        String spGetById = "SELECT * FROM " + tableName + " WHERE Nome = ? ;";
+
+        try {
+
+            con = connection.getConnections();
+            PreparedStatement stmt = con.prepareStatement(spGetById);
+
+            stmt.setString(1, name);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                return montaVO(rs);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+                con.close();
+            }
+        }
+
+        return null;
+    }
 
     public List<ClienteVO> getAll() throws SQLException {
         ConexaoDB connection = new ConexaoDB();

@@ -224,6 +224,9 @@ public class JFrameMain extends javax.swing.JFrame {
             btnRelatOrc.setEnabled(true);
             btnUsuario.setEnabled(true);
         }
+        if (config.currentUser.getId_role() != 0){
+            btnUsuario.setEnabled(false);
+        }
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed

@@ -281,9 +281,7 @@ public class jdCadastraProduto extends javax.swing.JFrame {
         mode = 0;
 
         enableInputs(false, true, true, true);
-
         enableCbs(true, true);
-
         enableBtn(false, true, false);
 
         btnBuscaProduto.setEnabled(false);
@@ -293,9 +291,7 @@ public class jdCadastraProduto extends javax.swing.JFrame {
         mode = 1;
 
         enableInputs(false, false, false, false);
-
         enableCbs(false, false);
-
         enableBtn(false, false, true);
 
         btnBuscaProduto.setEnabled(true);
@@ -305,9 +301,7 @@ public class jdCadastraProduto extends javax.swing.JFrame {
         mode = 2;
 
         enableInputs(false, true, true, true);
-
         enableCbs(true, true);
-
         enableBtn(true, false, false);
 
         btnBuscaProduto.setEnabled(true);

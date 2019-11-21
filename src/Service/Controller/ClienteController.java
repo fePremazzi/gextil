@@ -15,7 +15,7 @@ import java.util.List;
  * @author fePremazziNB
  */
 public class ClienteController {
-    
+
     public void update(ClienteVO cl) {
         try {
             ClienteDAO clDao = new ClienteDAO();
@@ -83,8 +83,18 @@ public class ClienteController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    } 
+    }
 
+    public ClienteVO getByName(String name) {
+        try {
 
-    
+            ClienteDAO clDao = new ClienteDAO();
+            return clDao.getByName(name);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
