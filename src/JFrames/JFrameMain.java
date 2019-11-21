@@ -223,10 +223,11 @@ public class JFrameMain extends javax.swing.JFrame {
             btnPedido.setEnabled(true);
             btnRelatOrc.setEnabled(true);
             btnUsuario.setEnabled(true);
+            if (config.currentUser.getId_role() != 0) {
+                btnUsuario.setEnabled(false);
+            }
         }
-        if (config.currentUser.getId_role() != 0){
-            btnUsuario.setEnabled(false);
-        }
+
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
@@ -241,7 +242,7 @@ public class JFrameMain extends javax.swing.JFrame {
 
     private void btnDeslogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeslogarActionPerformed
         config.currentUser = null;
-        
+
         btnCliente.setEnabled(false);
         btnItem.setEnabled(false);
         btnPedido.setEnabled(false);
