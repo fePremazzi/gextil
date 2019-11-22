@@ -37,6 +37,18 @@ public class ProdutoController {
 
         return null;
     }
+    
+    public ProdutoVO getByName(String name) {
+        try {
+            ProdutoDAO prDao = new ProdutoDAO();
+            return prDao.getByName(name);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 
     public List<ProdutoVO> getAll() {
         List<ProdutoVO> listAll = new ArrayList<>();

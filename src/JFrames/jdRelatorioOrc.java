@@ -6,10 +6,12 @@
 package JFrames;
 
 import Service.Controller.ClienteController;
+import Service.Controller.OrcItemController;
 import Service.Controller.OrcamentoController;
 import Service.Controller.ProdutoController;
 import Service.Controller.UsuarioController;
 import VOs.ClienteVO;
+import VOs.OrcItemVO;
 import VOs.OrcamentoVO;
 import VOs.ProdutoVO;
 import VOs.UsuarioVO;
@@ -19,6 +21,7 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import jdk.nashorn.internal.runtime.regexp.joni.exception.JOniException;
 
 /**
@@ -33,10 +36,14 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
     public jdRelatorioOrc(java.awt.Frame parent, boolean modal) {
 //        super(parent, modal);
         initComponents();
+        jTable1.setRowSelectionAllowed(true);
+        jTable1.setColumnSelectionAllowed(false);
+
         orcCont = new OrcamentoController();
         clCont = new ClienteController();
         prdCont = new ProdutoController();
         usrCont = new UsuarioController();
+        oiCont = new OrcItemController();
 
         txtId.setText(String.valueOf(orcCont.getNextId()));
         txtDataEmissao.setText(new Date(System.currentTimeMillis()).toString());
@@ -59,10 +66,12 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
     }
 
     OrcamentoController orcCont;
+    OrcItemController oiCont;
     ProdutoController prdCont;
     ClienteController clCont;
     UsuarioController usrCont;
     List<ProdutoVO> carrinho;
+    List<OrcItemVO> oiList;
     int mode = 0;
 
     /**
@@ -74,6 +83,7 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        orcItemVO1 = new VOs.OrcItemVO();
         jPanel1 = new javax.swing.JPanel();
         cbTipoRelatorio = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
@@ -273,9 +283,19 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
 
         btnInserir.setText("Inserir");
         btnInserir.setEnabled(false);
+        btnInserir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInserirActionPerformed(evt);
+            }
+        });
 
         btnDeletar.setText("Deletar");
         btnDeletar.setEnabled(false);
+        btnDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletarActionPerformed(evt);
+            }
+        });
 
         btnBuscaOrcamento.setText("Busca orçamento");
         btnBuscaOrcamento.setEnabled(false);
@@ -452,13 +472,21 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
         ClienteVO cl = clCont.getByName(cbClientes.getSelectedItem().toString());
         UsuarioVO usr = usrCont.getByName(txtUsuario.getText());
 
+        double soma = 0;
+        for (ProdutoVO produtoVO : carrinho) {
+            soma += produtoVO.getValorUnit();
+        }
+
         OrcamentoVO orc = new OrcamentoVO(cl.getId(),
                 new java.sql.Date(System.currentTimeMillis()),
-                usr.getId(), 150.0, Integer.parseInt(txtId.getText()));
+                usr.getId(), soma, Integer.parseInt(txtId.getText()));
 
         switch (mode) {
             case 0: //Insere
                 if (verificaObjeto(orc)) {
+                    for (OrcItemVO oi : oiList) {
+                        oiCont.insere(oi);
+                    }
                     orcCont.insere(orc);
                     JOptionPane.showMessageDialog(null, "Cadastrado com sucesso.");
                     this.dispose();
@@ -521,6 +549,60 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
         txtDataEmissao.setText(new Date(System.currentTimeMillis()).toString());
         txtUsuario.setText(config.currentUser.getUsername());
     }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
+        ProdutoVO prd = prdCont.getByName(cbProduto.getSelectedItem().toString());
+
+        OrcItemVO oi = new OrcItemVO(
+                Integer.parseInt(txtId.getText()),
+                prd.getId(),
+                prd.getValorUnit(),
+                Integer.parseInt(txtQuantidade.getText()),
+                oiCont.getNextId());
+
+        oiList.add(oi);
+        carrinho.add(prd);
+
+        populateTable();
+
+    }//GEN-LAST:event_btnInserirActionPerformed
+
+    private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
+        int row = jTable1.getSelectedRow();
+        if (row != -1) {
+            String value = (String) jTable1.getModel().getValueAt(row, 0);
+            ProdutoVO prd = prdCont.getByName(value);
+
+            for (ProdutoVO produtoVO : carrinho) {
+                if (prd.getId() == produtoVO.getId()) {
+                    carrinho.remove(produtoVO);
+                    for (OrcItemVO orcItemVO : oiList) {
+                        if (prd.getId() == orcItemVO.getId_item()) {
+                            oiList.remove(orcItemVO);
+                        }
+                    }
+                    populateTable();
+                }
+            }
+        }
+
+    }//GEN-LAST:event_btnDeletarActionPerformed
+
+    private void populateTable() {
+        // adicionar no grid
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        int n_rows = model.getRowCount();
+
+        // clean grid
+        for (int i = 0; i < n_rows; i++) {
+            model.removeRow(i);
+        }
+
+        for (ProdutoVO produtoVO : carrinho) {
+            Object[] linha = {produtoVO.getNome(), produtoVO.getValorUnit(), txtQuantidade.getText()}; //alguma linha
+            model.addRow(linha);
+        }
+    }
 
     private void cleanInputs() {
         txtId.setText("");
@@ -640,6 +722,7 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private VOs.OrcItemVO orcItemVO1;
     private javax.swing.JFormattedTextField txtDataEmissao;
     private javax.swing.JFormattedTextField txtDataFim;
     private javax.swing.JFormattedTextField txtDataInicio;

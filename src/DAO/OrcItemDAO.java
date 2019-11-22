@@ -5,9 +5,7 @@
  */
 package DAO;
 
-import VOs.Enuns.EnunCor;
-import VOs.Enuns.EnunTamanho;
-import VOs.ProdutoVO;
+import VOs.OrcItemVO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,37 +17,34 @@ import java.util.List;
  *
  * @author fePremazziNB
  */
-public class ProdutoDAO extends Repositorio {
+public class OrcItemDAO extends Repositorio {
 
-    public ProdutoDAO() {
-        tableName = "tbItem";
+    public OrcItemDAO() {
+        tableName = "tbOrcItm";
         spInsert = "INSERT INTO " + tableName + " "
-                + "(Nome, Tamanho, Cor, Valor, Descricao) "
-                + "VALUES ( ? , ? , ? , ? , ? );";
+                + "(Id_Orcamento, Id_Item, Valor_item, Qtd_Item) "
+                + "VALUES ( ? , ? , ? , ? );";
     }
 
-    public void update(ProdutoVO prd) throws SQLException {
-
+    public void update(OrcItemVO oi) throws SQLException {
         ConexaoDB connection = new ConexaoDB();
         Connection con = null;
 
-        String sql = "UPDATE " + tableName + " SET Nome = ? , "
-                + "Tamanho = ? ,"
-                + "Cor = ? , "
-                + "Valor = ? , "
-                + "Descricao = ? WHERE Id = ? ;";
+        String sql = "UPDATE " + tableName + " SET Id_Orcamento = ? , "
+                + "Id_Item = ? ,"
+                + "Valor_item = ? , "
+                + "Qtd_Item = ? WHERE Id = ? ;";
 
         try {
 
             con = connection.getConnections();
             PreparedStatement stmt = con.prepareStatement(sql);
 
-            stmt.setString(1, prd.getNome());
-            stmt.setString(2, prd.getTamanho().toString());
-            stmt.setString(3, prd.getCor().toString());
-            stmt.setDouble(4, prd.getValorUnit());
-            stmt.setString(5, prd.getDescricao());
-            stmt.setInt(6, prd.getId());
+            stmt.setInt(1, oi.getId_orcamento());
+            stmt.setInt(2, oi.getId_item());
+            stmt.setDouble(3, oi.getValor_item());
+            stmt.setInt(4, oi.getQtde_item());
+            stmt.setInt(5, oi.getId());
 
             stmt.executeUpdate();
 
@@ -60,10 +55,9 @@ public class ProdutoDAO extends Repositorio {
                 con.close();
             }
         }
-
     }
 
-    public ProdutoVO getById(int id) throws SQLException {
+    public OrcItemVO getById(int id) throws SQLException {
         ConexaoDB connection = new ConexaoDB();
         Connection con = null;
 
@@ -92,38 +86,8 @@ public class ProdutoDAO extends Repositorio {
 
         return null;
     }
-    
-    public ProdutoVO getByName(String name) throws SQLException {
-        ConexaoDB connection = new ConexaoDB();
-        Connection con = null;
 
-        String spGetById = "SELECT * FROM " + tableName + " WHERE Nome = ? ;";
-
-        try {
-
-            con = connection.getConnections();
-            PreparedStatement stmt = con.prepareStatement(spGetById);
-
-            stmt.setString(1, name);
-
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                return montaVO(rs);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (con != null) {
-                con.close();
-            }
-        }
-
-        return null;
-    }
-
-    public List<ProdutoVO> getAll() throws SQLException {
+    public List<OrcItemVO> getAll() throws SQLException {
         ConexaoDB connection = new ConexaoDB();
         Connection con = null;
 
@@ -136,7 +100,7 @@ public class ProdutoDAO extends Repositorio {
 
             ResultSet rs = stmt.executeQuery();
 
-            List<ProdutoVO> listAll = new ArrayList<>();
+            List<OrcItemVO> listAll = new ArrayList<>();
 
             while (rs.next()) {
                 listAll.add(montaVO(rs));
@@ -155,7 +119,7 @@ public class ProdutoDAO extends Repositorio {
         return null;
     }
 
-    public void insere(ProdutoVO prd) throws SQLException {
+    public void insere(OrcItemVO oi) throws SQLException {
         ConexaoDB connection = new ConexaoDB();
         Connection con = null;
 
@@ -163,13 +127,11 @@ public class ProdutoDAO extends Repositorio {
 
             con = connection.getConnections();
             PreparedStatement stmt = con.prepareStatement(spInsert);
-            //+ "(Nome, Tamanho, Cor, Valor, Descricao) "
 
-            stmt.setString(1, prd.getNome());
-            stmt.setString(2, prd.getTamanho().toString());
-            stmt.setString(3, prd.getCor().toString());
-            stmt.setDouble(4, prd.getValorUnit());
-            stmt.setString(5, prd.getDescricao());
+            stmt.setInt(1, oi.getId_orcamento());
+            stmt.setInt(2, oi.getId_item());
+            stmt.setDouble(3, oi.getValor_item());
+            stmt.setInt(4, oi.getQtde_item());
 
             stmt.executeUpdate();
 
@@ -180,15 +142,13 @@ public class ProdutoDAO extends Repositorio {
                 con.close();
             }
         }
-
     }
 
-    public ProdutoVO montaVO(ResultSet rs) throws SQLException {
-        return new ProdutoVO(rs.getString("Nome"),
-                EnunTamanho.valueOf(rs.getString("Tamanho")),
-                EnunCor.valueOf(rs.getString("Cor")),
-                rs.getDouble("Valor"),
-                rs.getString("Descricao"),
+    public OrcItemVO montaVO(ResultSet rs) throws SQLException {
+        return new OrcItemVO(rs.getInt("Id_Orcamento"),
+                rs.getInt("Id_Item"),
+                rs.getDouble("Valor_item"),
+                rs.getInt("Qtd_Item"),
                 rs.getInt("Id"));
     }
 
