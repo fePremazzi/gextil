@@ -59,6 +59,16 @@ public class PedidoController {
         }
         return -1;
     }
+    
+    public int getNextNumId() {
+        try {
+            PedidoDAO peDao = new PedidoDAO();
+            return peDao.getProximoNumId();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
 
     public void insere(PedidoVO ped) {
         try {

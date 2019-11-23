@@ -5,8 +5,16 @@
  */
 package JFrames;
 
+import Service.Controller.ClienteController;
+import Service.Controller.OrcamentoController;
 import Service.Controller.PedidoController;
+import VOs.ClienteVO;
+import VOs.OrcamentoVO;
 import VOs.PedidoVO;
+import gextil.config;
+import java.sql.Date;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,7 +29,32 @@ public class jdCadastraPedido extends javax.swing.JFrame {
     public jdCadastraPedido(java.awt.Frame parent, boolean modal) {
 //        super(parent, modal);
         initComponents();
+        pedCont = new PedidoController();
+        clCont = new ClienteController();
+        orcCont = new OrcamentoController();
+        
+        init();
+
+        List<ClienteVO> clCombo = clCont.getAll();
+        DefaultComboBoxModel modelo = (DefaultComboBoxModel) cbClientes.getModel();
+        modelo.removeAllElements();
+        for (ClienteVO cl : clCombo) {
+            modelo.addElement(cl.getNome());
+        }
+
+        List<OrcamentoVO> orcCombo = orcCont.getAll();
+        DefaultComboBoxModel modPrd = (DefaultComboBoxModel) cbOrcamento.getModel();
+        modPrd.removeAllElements();
+        for (OrcamentoVO orc : orcCombo) {
+            modPrd.addElement(orc.getId() + " - " + orc.getDataEmissao().toString() + " - " + clCont.getById(orc.getCliente()).getNome());
+        }
+
     }
+
+    PedidoController pedCont;
+    ClienteController clCont;
+    OrcamentoController orcCont;
+    int mode = 0;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -66,7 +99,7 @@ public class jdCadastraPedido extends javax.swing.JFrame {
 
         jLabel2.setText("Tipo");
 
-        cbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Proprio", "Terceirizado" }));
         cbTipo.setEnabled(false);
 
         jLabel3.setText("Data de emissão");
@@ -77,8 +110,11 @@ public class jdCadastraPedido extends javax.swing.JFrame {
 
         jLabel4.setText("Data de entrega");
 
-        txtDataEntrega.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
-        txtDataEntrega.setText("dd/MM/yyyy");
+        try {
+            txtDataEntrega.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-##-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         txtDataEntrega.setEnabled(false);
 
         jLabel5.setText("Nº do pedido");
@@ -165,12 +201,11 @@ public class jdCadastraPedido extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(48, 48, 48)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(txtPedido)
-                                        .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtPedido)
+                                    .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
                                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(cbTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -187,14 +222,14 @@ public class jdCadastraPedido extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
                             .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnBuscaPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnVoltar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnConfirmar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnConfirmar, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(1, 1, 1)))
@@ -249,7 +284,7 @@ public class jdCadastraPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-
+        //TODO parsear a data de entrega
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void btnBuscaPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaPedidoActionPerformed
@@ -260,48 +295,50 @@ public class jdCadastraPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscaPedidoActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        cbTipo.setEnabled(true);
-        txtDataEmissao.setEnabled(true);
-        txtDataEntrega.setEnabled(true);
-        txtPedido.setEnabled(true);
-        cbClientes.setEnabled(true);
-        cbOrcamento.setEnabled(true);
+
+        mode = 0;
+        enableInputs(false, false, true, false, false);
+        enableCbs(true, true, true);
+        enableBtn(false, true, false);
 
         btnBuscaPedido.setEnabled(false);
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        cbTipo.setEnabled(false);
-        txtDataEmissao.setEnabled(false);
-        txtDataEntrega.setEnabled(false);
-        txtPedido.setEnabled(false);
-        cbClientes.setEnabled(false);
-        cbOrcamento.setEnabled(false);
+
+        mode = 1;
+        enableInputs(false, false, false, false, false);
+        enableCbs(false, false, false);
+        enableBtn(false, false, true);
 
         btnBuscaPedido.setEnabled(true);
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        cbTipo.setEnabled(true);
-        txtDataEmissao.setEnabled(true);
-        txtDataEntrega.setEnabled(true);
-        txtPedido.setEnabled(false);
-        cbClientes.setEnabled(true);
-        cbOrcamento.setEnabled(true);
+        mode = 2;
+        enableInputs(false, false, true, false, false);
+        enableCbs(false, false, false);
+        enableBtn(true, false, false);
 
         btnBuscaPedido.setEnabled(true);
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnVoltar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltar1ActionPerformed
-        PedidoController pedCont = new PedidoController();
         enableBtn(true, true, true);
         cleanInputs();
         enableCbs(false, false, false);
         enableInputs(false, false, false, false, false);
         btnBuscaPedido.setEnabled(false);
 
-        txtId.setText(String.valueOf(pedCont.getNextId()));
+        init();
     }//GEN-LAST:event_btnVoltar1ActionPerformed
+
+    private void init() {
+        txtId.setText(String.valueOf(pedCont.getNextId()));
+        txtPedido.setText(String.valueOf(pedCont.getNextNumId()));
+        txtUsername.setText(config.currentUser.getUsername());
+        txtDataEmissao.setText(new Date(System.currentTimeMillis()).toString());
+    }
 
     private void cleanInputs() {
         txtId.setText("");

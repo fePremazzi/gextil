@@ -157,6 +157,31 @@ public class PedidoDAO extends Repositorio {
         }
 
     }
+    
+    public int getProximoNumId() throws SQLException {
+        ConexaoDB connection = new ConexaoDB();
+        Connection cn = null;
+        String selectSql = "SELECT ISNULL(MAX(Num_pedido)+1,1) AS proximo FROM " + tableName + ";";
+        try {
+            cn = connection.getConnections();
+            PreparedStatement prepareSt = cn.prepareStatement(selectSql);
+
+            ResultSet set = prepareSt.executeQuery();
+
+            while (set.next()) {
+                return set.getInt("proximo");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cn != null) {
+                cn.close();
+
+            }
+        }
+        return -2;
+    }
 
     public PedidoVO montaVO(ResultSet rs) throws SQLException {
         return new PedidoVO(EnunTipoPedido.valueOf(rs.getString("Tipo")),

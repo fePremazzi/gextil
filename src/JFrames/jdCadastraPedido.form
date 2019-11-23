@@ -36,13 +36,11 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel2" min="-2" pref="41" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="txtPedido" max="32767" attributes="0"/>
-                                      <Component id="txtUsername" min="-2" pref="110" max="-2" attributes="0"/>
-                                  </Group>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="txtPedido" max="32767" attributes="0"/>
+                                  <Component id="txtUsername" pref="110" max="32767" attributes="0"/>
                                   <Component id="txtId" min="-2" pref="80" max="-2" attributes="0"/>
-                                  <Component id="cbTipo" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbTipo" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -66,7 +64,7 @@
                           <Component id="btnCadastrar" pref="131" max="32767" attributes="0"/>
                           <Component id="btnExcluir" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="21" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="btnBuscaPedido" max="32767" attributes="0"/>
                           <Component id="btnAlterar" max="32767" attributes="0"/>
@@ -74,7 +72,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="btnVoltar1" max="32767" attributes="0"/>
-                          <Component id="btnConfirmar" max="32767" attributes="0"/>
+                          <Component id="btnConfirmar" pref="103" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btnCancelar" min="-2" pref="105" max="-2" attributes="0"/>
@@ -153,11 +151,9 @@
     <Component class="javax.swing.JComboBox" name="cbTipo">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="2">
+            <StringItem index="0" value="Proprio"/>
+            <StringItem index="1" value="Terceirizado"/>
           </StringArray>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
@@ -187,10 +183,9 @@
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="txtDataEntrega">
       <Properties>
-        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-          <Format subtype="0" type="1"/>
+        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
+          <Format format="####-##-##" subtype="-1" type="5"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="dd/MM/yyyy"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
