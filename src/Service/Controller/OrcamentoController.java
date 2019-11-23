@@ -15,11 +15,21 @@ import java.util.List;
  * @author fePremazziNB
  */
 public class OrcamentoController {
-    
+
     public void update(OrcamentoVO orc) {
         try {
             OrcamentoDAO orcDao = new OrcamentoDAO();
             orcDao.update(orc);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateValor(int id_orcamento, double valor) {
+        try {
+            OrcamentoDAO orcDao = new OrcamentoDAO();
+            orcDao.updateValor(id_orcamento, valor);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -84,5 +94,5 @@ public class OrcamentoController {
             e.printStackTrace();
         }
     }
-    
+
 }

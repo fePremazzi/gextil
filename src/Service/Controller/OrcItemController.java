@@ -7,6 +7,7 @@ package Service.Controller;
 
 import DAO.OrcItemDAO;
 import VOs.OrcItemVO;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
  * @author fePremazziNB
  */
 public class OrcItemController {
-    
+
     public void update(OrcItemVO oi) {
         try {
             OrcItemDAO oiDao = new OrcItemDAO();
@@ -38,12 +39,12 @@ public class OrcItemController {
         return null;
     }
 
-    public List<OrcItemVO> getAll() {
+    public List<OrcItemVO> getAllByOrcId(int id_orc) {
         List<OrcItemVO> listAll = new ArrayList<>();
         try {
             OrcItemDAO oiDao = new OrcItemDAO();
 
-            return oiDao.getAll();
+            return oiDao.getAllByOrcId(id_orc);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -60,18 +61,25 @@ public class OrcItemController {
         return -1;
     }
 
-    public void insere(OrcItemVO oi) {
-        try {
-            if (oi != null) {
+    public void insere(OrcItemVO oi) throws SQLException {
 
-                OrcItemDAO oiDao = new OrcItemDAO();
-                oiDao.insere(oi);
-            }
+        if (oi != null) {
+
+            OrcItemDAO oiDao = new OrcItemDAO();
+            oiDao.insere(oi);
+        }
+
+    }
+    
+    public void deletaPorIdOrcamento(int id_orcamento) {
+        try {
+
+            OrcItemDAO oiDao = new OrcItemDAO();
+            oiDao.deleteByIdOrc(id_orcamento);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     public void deletaPorId(int id) {
@@ -84,5 +92,5 @@ public class OrcItemController {
             e.printStackTrace();
         }
     }
-    
+
 }

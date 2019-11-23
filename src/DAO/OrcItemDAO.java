@@ -87,16 +87,18 @@ public class OrcItemDAO extends Repositorio {
         return null;
     }
 
-    public List<OrcItemVO> getAll() throws SQLException {
+    public List<OrcItemVO> getAllByOrcId(int id_orc) throws SQLException {
         ConexaoDB connection = new ConexaoDB();
         Connection con = null;
 
-        String spSelectAll = "SELECT * FROM " + tableName + ";";
+        String spSelectAll = "SELECT * FROM " + tableName + " "
+                + "WHERE Id_Orcamento = ? ;";
 
         try {
 
             con = connection.getConnections();
             PreparedStatement stmt = con.prepareStatement(spSelectAll);
+            stmt.setInt(1, id_orc);
 
             ResultSet rs = stmt.executeQuery();
 
@@ -140,6 +142,29 @@ public class OrcItemDAO extends Repositorio {
         } finally {
             if (con != null) {
                 con.close();
+            }
+        }
+    }
+    
+    public void deleteByIdOrc(int id) throws SQLException {
+        ConexaoDB connection = new ConexaoDB();
+        Connection cn = null;
+        String selectSql = "DELETE " + tableName + " WHERE Id_Orcamento = ? ;";
+
+        try {
+            cn = connection.getConnections();
+            PreparedStatement stmt = cn.prepareStatement(selectSql);
+
+            stmt.setInt(1, id);
+
+            stmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cn != null) {
+                cn.close();
+
             }
         }
     }

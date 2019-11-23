@@ -26,6 +26,32 @@ public class OrcamentoDAO extends Repositorio {
                 + "VALUES ( ? , ? , ? , ? );";
     }
     
+    public void updateValor(int id_orcamento, double valor) throws SQLException{
+        ConexaoDB connection = new ConexaoDB();
+        Connection con = null;
+
+        String sql = "UPDATE " + tableName + " SET Valor_total = ? "
+                + "WHERE Id = ? ;";
+
+        try {
+
+            con = connection.getConnections();
+            PreparedStatement stmt = con.prepareStatement(sql);
+            
+            stmt.setDouble(1, valor);
+            stmt.setInt(2, id_orcamento);
+
+            stmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
+    
     public void update(OrcamentoVO orc) throws SQLException {
         ConexaoDB connection = new ConexaoDB();
         Connection con = null;

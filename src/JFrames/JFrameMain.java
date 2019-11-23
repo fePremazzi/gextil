@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -248,6 +249,7 @@ public class JFrameMain extends javax.swing.JFrame {
         btnPedido.setEnabled(false);
         btnRelatOrc.setEnabled(false);
         btnUsuario.setEnabled(false);
+        JOptionPane.showMessageDialog(rootPane, "Deslogado com sucesso.");
     }//GEN-LAST:event_btnDeslogarActionPerformed
 
     private void btnItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnItemActionPerformed

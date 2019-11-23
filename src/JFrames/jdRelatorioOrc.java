@@ -17,7 +17,11 @@ import VOs.ProdutoVO;
 import VOs.UsuarioVO;
 import gextil.config;
 import java.sql.Date;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -44,6 +48,8 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
         prdCont = new ProdutoController();
         usrCont = new UsuarioController();
         oiCont = new OrcItemController();
+        carrinho = new ArrayList<>();
+        oiList = new ArrayList<>();
 
         txtId.setText(String.valueOf(orcCont.getNextId()));
         txtDataEmissao.setText(new Date(System.currentTimeMillis()).toString());
@@ -113,8 +119,6 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
         btnInserir = new javax.swing.JButton();
         btnDeletar = new javax.swing.JButton();
         btnBuscaOrcamento = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
-        txtQuantidade = new javax.swing.JTextField();
         btnFechar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -215,7 +219,7 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -253,6 +257,7 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
         });
 
         btnExcluir.setText("Excluir");
+        btnExcluir.setEnabled(false);
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExcluirActionPerformed(evt);
@@ -305,11 +310,6 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
             }
         });
 
-        jLabel9.setText("Quantidade");
-
-        txtQuantidade.setText("1");
-        txtQuantidade.setEnabled(false);
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -320,15 +320,12 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel5))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cbClientes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cbProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(cbProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnInserir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -374,10 +371,7 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(cbClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnInserir)
-                    .addComponent(jLabel9)
-                    .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnInserir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -450,7 +444,26 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFecharActionPerformed
 
     private void btnBuscaOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaOrcamentoActionPerformed
-        // TODO add your handling code here:
+        OrcamentoVO orc = new OrcamentoVO();
+        jdConsultaOrcamento frConsulta = new jdConsultaOrcamento(this, rootPaneCheckingEnabled, orc);
+        frConsulta.setModal(true);
+        frConsulta.setLocationRelativeTo(this);
+        frConsulta.setVisible(true);
+
+        if (orc.getId() != 0) {
+            List<OrcItemVO> listOI = oiCont.getAllByOrcId(orc.getId());
+            oiList.clear();
+            oiList.addAll(listOI);
+            carrinho.clear();
+            for (OrcItemVO oi : oiList) {
+                carrinho.add(prdCont.getById(oi.getId_item()));
+            }
+
+            populateTable();
+            txtId.setText(String.valueOf(orc.getId()));
+            txtDataEmissao.setText(orc.getDataEmissao().toString());
+            txtUsuario.setText(usrCont.getById(orc.getUsuario()).getUsername());
+        }
     }//GEN-LAST:event_btnBuscaOrcamentoActionPerformed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
@@ -483,35 +496,64 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
 
         switch (mode) {
             case 0: //Insere
-                if (verificaObjeto(orc)) {
-                    for (OrcItemVO oi : oiList) {
-                        oiCont.insere(oi);
+                try {
+                    if (verificaObjeto(orc)) {
+                        orcCont.insere(orc);
+
+                        for (OrcItemVO oi : oiList) {
+                            oiCont.insere(oi);
+                        }
+                        JOptionPane.showMessageDialog(null, "Cadastrado com sucesso.");
+
+                        // Creates a Pedido form after succesful insert
+                        JFrame frame = new JFrame("Alerta!");
+                        int option = JOptionPane.showConfirmDialog(
+                                frame,
+                                "Deseja cadastrar o orcamento como pedido?",
+                                "Pedido",
+                                JOptionPane.YES_NO_OPTION
+                        );
+                        if (option == 0) {
+                            jdCadastraPedido frPedido = new jdCadastraPedido(this, rootPaneCheckingEnabled);
+                            frPedido.setLocationRelativeTo(this);
+                            frPedido.setVisible(true);
+                        }
+                        this.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Preencha os campos em branco antes de continuar.");
                     }
-                    orcCont.insere(orc);
-                    JOptionPane.showMessageDialog(null, "Cadastrado com sucesso.");
-                    this.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Preencha os campos em branco antes de continuar.");
+                    break;
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Erro inesperado");
                 }
-                break;
 
             case 1: //Exclui
-                orcCont.deletaPorId(Integer.parseInt(txtId.getText()));
-                JOptionPane.showMessageDialog(null, "Deletado com sucesso.");
+//                orcCont.deletaPorId(Integer.parseInt(txtId.getText()));
+//                JOptionPane.showMessageDialog(null, "Deletado com sucesso.");
                 break;
 
             case 2: //Alterar
-                orcCont.update(orc);
+//                orcCont.update(orc);
+                oiCont.deletaPorIdOrcamento(orc.getId());
+                for (OrcItemVO oi : oiList) {
+                    try {
+                        oiCont.insere(oi);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(jdRelatorioOrc.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                orcCont.updateValor(Integer.parseInt(txtId.getText()), soma);
                 JOptionPane.showMessageDialog(null, "Atualizado com sucesso.");
                 break;
         }
+        btnVoltarActionPerformed(evt);
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         mode = 2;
 
-        enableCbs(true, true);
-        enableInputs(false, true);
+        enableCbs(false, true);
+        enableInputs(false);
         enableBtn(true, false, false, true, true);
 
         btnBuscaOrcamento.setEnabled(true);
@@ -521,8 +563,8 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
         mode = 1;
 
         enableCbs(false, false);
-        enableInputs(false, false);
-        enableBtn(false, false, true, false, false);
+        enableInputs(false);
+        enableBtn(false, false, false, false, false);
 
         btnBuscaOrcamento.setEnabled(true);
     }//GEN-LAST:event_btnExcluirActionPerformed
@@ -531,7 +573,7 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
         mode = 0;
 
         enableCbs(true, true);
-        enableInputs(false, true);
+        enableInputs(false);
         enableBtn(false, true, false, true, true);
 
         btnBuscaOrcamento.setEnabled(false);
@@ -539,10 +581,10 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
 
-        enableBtn(true, true, true, false, false);
+        enableBtn(true, true, false, false, false);
         cleanInputs();
         enableCbs(false, false);
-        enableInputs(false, false);
+        enableInputs(false);
         btnBuscaOrcamento.setEnabled(false);
 
         txtId.setText(String.valueOf(orcCont.getNextId()));
@@ -557,7 +599,7 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
                 Integer.parseInt(txtId.getText()),
                 prd.getId(),
                 prd.getValorUnit(),
-                Integer.parseInt(txtQuantidade.getText()),
+                1,
                 oiCont.getNextId());
 
         oiList.add(oi);
@@ -573,17 +615,21 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
             String value = (String) jTable1.getModel().getValueAt(row, 0);
             ProdutoVO prd = prdCont.getByName(value);
 
-            for (ProdutoVO produtoVO : carrinho) {
-                if (prd.getId() == produtoVO.getId()) {
-                    carrinho.remove(produtoVO);
-                    for (OrcItemVO orcItemVO : oiList) {
-                        if (prd.getId() == orcItemVO.getId_item()) {
-                            oiList.remove(orcItemVO);
-                        }
-                    }
-                    populateTable();
+            for (int i = 0; i < carrinho.size(); i++) {
+                if (prd.getId() == carrinho.get(i).getId()) {
+                    carrinho.remove(i);
                 }
             }
+            System.out.println("Carrinho:" + carrinho.size());
+
+            for (int i = 0; i < oiList.size(); i++) {
+                if (prd.getId() == oiList.get(i).getId_item()) {
+                    oiList.remove(i);
+                }
+            }
+            System.out.println("oiList:" + oiList.size());
+
+            populateTable();
         }
 
     }//GEN-LAST:event_btnDeletarActionPerformed
@@ -593,13 +639,10 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         int n_rows = model.getRowCount();
 
-        // clean grid
-        for (int i = 0; i < n_rows; i++) {
-            model.removeRow(i);
-        }
+        model.setRowCount(0);
 
         for (ProdutoVO produtoVO : carrinho) {
-            Object[] linha = {produtoVO.getNome(), produtoVO.getValorUnit(), txtQuantidade.getText()}; //alguma linha
+            Object[] linha = {produtoVO.getNome(), produtoVO.getValorUnit(), 1}; //alguma linha
             model.addRow(linha);
         }
     }
@@ -610,7 +653,6 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
         txtUsuario.setText("");
         cbClientes.setSelectedIndex(0);
         cbProduto.setSelectedIndex(0);
-        txtQuantidade.setText("1");
 
     }
 
@@ -619,10 +661,8 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
         this.cbProduto.setEnabled(cbProduto);
     }
 
-    private void enableInputs(boolean txtDataEmissao,
-            boolean txtQuantidade) {
+    private void enableInputs(boolean txtDataEmissao) {
         this.txtDataEmissao.setEnabled(txtDataEmissao);
-        this.txtQuantidade.setEnabled(txtQuantidade);
     }
 
     private void enableBtn(boolean btnAlterar,
@@ -717,7 +757,6 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -727,7 +766,6 @@ public class jdRelatorioOrc extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtDataFim;
     private javax.swing.JFormattedTextField txtDataInicio;
     private javax.swing.JTextField txtId;
-    private javax.swing.JTextField txtQuantidade;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
