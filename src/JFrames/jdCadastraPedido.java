@@ -8,9 +8,12 @@ package JFrames;
 import Service.Controller.ClienteController;
 import Service.Controller.OrcamentoController;
 import Service.Controller.PedidoController;
+import Service.Controller.UsuarioController;
 import VOs.ClienteVO;
+import VOs.Enuns.EnunTipoPedido;
 import VOs.OrcamentoVO;
 import VOs.PedidoVO;
+import VOs.UsuarioVO;
 import gextil.config;
 import java.sql.Date;
 import java.util.List;
@@ -32,7 +35,8 @@ public class jdCadastraPedido extends javax.swing.JFrame {
         pedCont = new PedidoController();
         clCont = new ClienteController();
         orcCont = new OrcamentoController();
-        
+        usrCont = new UsuarioController();
+
         init();
 
         List<ClienteVO> clCombo = clCont.getAll();
@@ -52,6 +56,7 @@ public class jdCadastraPedido extends javax.swing.JFrame {
     }
 
     PedidoController pedCont;
+    UsuarioController usrCont;
     ClienteController clCont;
     OrcamentoController orcCont;
     int mode = 0;
@@ -72,13 +77,13 @@ public class jdCadastraPedido extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtDataEmissao = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtDataEntrega = new javax.swing.JFormattedTextField();
+        txtDiasEntrega = new javax.swing.JFormattedTextField();
         jLabel5 = new javax.swing.JLabel();
         txtPedido = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         cbClientes = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
-        txtUsername = new javax.swing.JTextField();
+        txtUsuario = new javax.swing.JTextField();
         btnBuscaPedido = new javax.swing.JButton();
         btnCadastrar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
@@ -88,6 +93,7 @@ public class jdCadastraPedido extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         cbOrcamento = new javax.swing.JComboBox<>();
         btnVoltar1 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastra pedidos");
@@ -99,7 +105,7 @@ public class jdCadastraPedido extends javax.swing.JFrame {
 
         jLabel2.setText("Tipo");
 
-        cbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Proprio", "Terceirizado" }));
+        cbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Proprio", "Terceiro" }));
         cbTipo.setEnabled(false);
 
         jLabel3.setText("Data de emissão");
@@ -108,14 +114,9 @@ public class jdCadastraPedido extends javax.swing.JFrame {
         txtDataEmissao.setText("dd/MM/yyyy");
         txtDataEmissao.setEnabled(false);
 
-        jLabel4.setText("Data de entrega");
+        jLabel4.setText("Entrega em");
 
-        try {
-            txtDataEntrega.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-##-##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        txtDataEntrega.setEnabled(false);
+        txtDiasEntrega.setEnabled(false);
 
         jLabel5.setText("Nº do pedido");
 
@@ -128,7 +129,7 @@ public class jdCadastraPedido extends javax.swing.JFrame {
 
         jLabel7.setText("Usuario");
 
-        txtUsername.setEnabled(false);
+        txtUsuario.setEnabled(false);
 
         btnBuscaPedido.setText("Busca de pedidos");
         btnBuscaPedido.setEnabled(false);
@@ -186,6 +187,8 @@ public class jdCadastraPedido extends javax.swing.JFrame {
             }
         });
 
+        jLabel9.setText("dias");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -203,7 +206,7 @@ public class jdCadastraPedido extends javax.swing.JFrame {
                                 .addGap(48, 48, 48)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtPedido)
-                                    .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+                                    .addComponent(txtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
                                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cbTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(18, 18, 18)
@@ -217,7 +220,11 @@ public class jdCadastraPedido extends javax.swing.JFrame {
                             .addComponent(cbOrcamento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cbClientes, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtDataEmissao, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
-                            .addComponent(txtDataEntrega)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtDiasEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel9)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
@@ -249,7 +256,8 @@ public class jdCadastraPedido extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(txtDataEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDiasEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -259,7 +267,7 @@ public class jdCadastraPedido extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
                     .addComponent(cbOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
@@ -284,14 +292,86 @@ public class jdCadastraPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        //TODO parsear a data de entrega
+
+        ClienteVO cl = clCont.getByName(cbClientes.getSelectedItem().toString());
+        UsuarioVO usr = usrCont.getByName(txtUsuario.getText());
+        String selected = (String) cbOrcamento.getSelectedItem();
+        int id_orc = Integer.parseInt(selected.split(" - ")[0]);
+
+        long now = System.currentTimeMillis();
+
+        PedidoVO ped = new PedidoVO(EnunTipoPedido.valueOf(cbTipo.getSelectedItem().toString()),
+                new Date(now),
+                new Date(now + 1000 * 60 * 60 * 24 * Integer.parseInt(txtDiasEntrega.getText())),
+                Integer.parseInt(txtPedido.getText()),
+                cl.getId(),
+                usr.getId(),
+                id_orc,
+                Integer.parseInt(txtId.getText()));
+
+        switch (mode) {
+            case 0: // Insere
+                if (verificaObjeto(ped)) {
+                    pedCont.insere(ped);
+                }
+                JOptionPane.showMessageDialog(null, "Cadastrado com sucesso.");
+                btnVoltar1ActionPerformed(evt);
+                break;
+            case 1: // Exclui
+                pedCont.deletaPorId(Integer.parseInt(txtId.getText()));
+                JOptionPane.showMessageDialog(null, "Deletado com sucesso.");
+                btnVoltar1ActionPerformed(evt);
+
+                break;
+            case 2: // Altera
+                pedCont.update(ped);
+                JOptionPane.showMessageDialog(null, "Atualizado com sucesso.");
+                btnVoltar1ActionPerformed(evt);
+
+                break;
+            default:
+                break;
+        }
+
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void btnBuscaPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaPedidoActionPerformed
-//        jdConsultaUsuario frConsulta = new jdConsultaUsuario(this, rootPaneCheckingEnabled);
-//        frConsulta.setModal(true);
-//        frConsulta.setLocationRelativeTo(this);
-//        frConsulta.setVisible(true);
+        PedidoVO ped = new PedidoVO();
+        jdConsultaPedido frConsulta = new jdConsultaPedido(this, rootPaneCheckingEnabled, ped);
+        frConsulta.setModal(true);
+        frConsulta.setLocationRelativeTo(this);
+        frConsulta.setVisible(true);
+
+        if (ped.getId() != 0) {
+
+            txtId.setText(String.valueOf(ped.getId()));
+            switch (ped.getTipo()) {
+                case Proprio:
+                    cbTipo.setSelectedIndex(0);
+                    break;
+                case Terceiro:
+                    cbTipo.setSelectedIndex(1);
+                    break;
+                default:  
+                    cbTipo.setSelectedIndex(0);
+                    break;
+            }
+            long dias = (ped.getDataEntrega().getTime() - ped.getDataEmissao().getTime())/(1000*60*60*24);
+            
+            txtPedido.setText(String.valueOf(ped.getNumPedido()));
+            txtUsuario.setText(usrCont.getById(ped.getUsuario()).getUsername());
+            txtDataEmissao.setText(ped.getDataEmissao().toString());
+            txtDiasEntrega.setText(String.valueOf(dias));
+            cbClientes.setSelectedItem(clCont.getById(ped.getCliente()).getNome());
+            
+            OrcamentoVO orcamento = orcCont.getById(ped.getOrcamento());
+            
+            String orc = String.valueOf(ped.getOrcamento()) + " - " + 
+                    orcamento.getDataEmissao().toString() + " - " +
+                    clCont.getById(ped.getCliente()).getNome();
+            cbOrcamento.setSelectedItem(orc);           
+        }
+
     }//GEN-LAST:event_btnBuscaPedidoActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
@@ -336,7 +416,7 @@ public class jdCadastraPedido extends javax.swing.JFrame {
     private void init() {
         txtId.setText(String.valueOf(pedCont.getNextId()));
         txtPedido.setText(String.valueOf(pedCont.getNextNumId()));
-        txtUsername.setText(config.currentUser.getUsername());
+        txtUsuario.setText(config.currentUser.getUsername());
         txtDataEmissao.setText(new Date(System.currentTimeMillis()).toString());
     }
 
@@ -344,10 +424,10 @@ public class jdCadastraPedido extends javax.swing.JFrame {
         txtId.setText("");
         txtDataEmissao.setText("");
         cbTipo.setSelectedIndex(0);
-        txtDataEntrega.setText("");
+        txtDiasEntrega.setText("");
         txtPedido.setText("");
         cbClientes.setSelectedIndex(0);
-        txtUsername.setText("");
+        txtUsuario.setText("");
         cbOrcamento.setSelectedIndex(0);
     }
 
@@ -364,9 +444,9 @@ public class jdCadastraPedido extends javax.swing.JFrame {
             boolean txtUsername) {
         this.txtId.setEnabled(txtId);
         this.txtDataEmissao.setEnabled(txtDataEmi);
-        this.txtDataEntrega.setEnabled(txtDataEnt);
+        this.txtDiasEntrega.setEnabled(txtDataEnt);
         this.txtPedido.setEnabled(txtPedido);
-        this.txtUsername.setEnabled(txtUsername);
+        this.txtUsuario.setEnabled(txtUsername);
 
     }
 
@@ -456,10 +536,11 @@ public class jdCadastraPedido extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JFormattedTextField txtDataEmissao;
-    private javax.swing.JFormattedTextField txtDataEntrega;
+    private javax.swing.JFormattedTextField txtDiasEntrega;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtPedido;
-    private javax.swing.JTextField txtUsername;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

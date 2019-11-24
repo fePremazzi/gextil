@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import gextil.config;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -18,17 +19,14 @@ import java.sql.Statement;
 public class ConexaoDB {
 
     public Connection getConnections() throws SQLException {
-//        Class.forName("com.mysql.jdbc.Driver"); /* Aqui registra */
         String connectionUrl
-                = "jdbc:sqlserver://localhost:1433;"
+                = "jdbc:sqlserver://" + config.db_server + ":1433;"
                 + "database=gextil;"
-                + "user=sa;"
-                + "password=123456;";
-
-//        ResultSet resultSet = null;
+                + "user=" + config.db_user + ";"
+                + "password=" + config.db_password + ";";
 
         Connection connection = DriverManager.getConnection(connectionUrl);
-        return connection; //.createStatement();
+        return connection;
     }
 
 }

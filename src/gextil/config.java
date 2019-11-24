@@ -14,5 +14,8 @@ import VOs.UsuarioVO;
 public class config {
     
     public static UsuarioVO currentUser = null;
+    public static String db_server = "localhost";
+    public static String db_user = "sa";
+    public static String db_password = "123456";
     
 }
