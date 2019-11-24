@@ -1,6 +1,8 @@
--- create database gextil
+if not exists(select * from sys.databases where name = 'gextil')
+    create database gextil;
+GO
 use gextil
-
+GO
 
 -- Main tables
 
@@ -14,7 +16,7 @@ CREATE TABLE tbUsuario
     id_role int NOT NULL,
 	imagem varchar(max)
 );
-
+GO
 CREATE TABLE tbCliente
 (
 	Id			int IDENTITY(1,1) PRIMARY KEY,
@@ -22,7 +24,7 @@ CREATE TABLE tbCliente
 	Cpf_cnpj	varchar(30) NOT NULL,
 	Imagem      varchar(max) NOT NUll
 )
-
+GO
 CREATE TABLE tbItem
 (
 	Id			int IDENTITY(1,1) PRIMARY KEY,
@@ -32,6 +34,7 @@ CREATE TABLE tbItem
 	Valor		decimal(6,2) NOT NULL,
 	Descricao	varchar(max)  NOT NULL,
 )
+GO
 CREATE TABLE tbOrcamento
 (
 	Id						int IDENTITY(1,1) PRIMARY KEY,
@@ -45,7 +48,7 @@ CREATE TABLE tbOrcamento
 	CONSTRAINT fk_CliOrc	FOREIGN KEY(Id_Cliente) REFERENCES tbCliente(Id),
 	CONSTRAINT fk_UsrOrc	FOREIGN KEY(Id_Usuario) REFERENCES tbUsuario(Id)
 )
-
+GO
 CREATE TABLE tbPedido
 (
 	Id						int IDENTITY(1,1) PRIMARY KEY,
@@ -60,6 +63,7 @@ CREATE TABLE tbPedido
 	CONSTRAINT fk_CliPed	FOREIGN KEY(Id_cliente) REFERENCES tbCliente(Id),
 	CONSTRAINT fk_UsrPed	FOREIGN KEY(Id_usuario) REFERENCES tbUsuario(Id)
 )
+GO
 CREATE TABLE tbOrcItm
 (
 	Id						int IDENTITY(1,1) PRIMARY KEY,
@@ -70,27 +74,29 @@ CREATE TABLE tbOrcItm
 	CONSTRAINT fk_OrcExpI FOREIGN KEY(Id_Orcamento) REFERENCES tbOrcamento(Id),
 	CONSTRAINT fk_OrcItm FOREIGN KEY(Id_Item) REFERENCES tbItem(Id)
 )
-
+GO
 CREATE TABLE tbRole
 (
 	id int IDENTITY(1,1) PRIMARY KEY,
 	descricao varchar(50) NOT NULL
 );
-
+GO
 
 -------------------------------------------------------------------------------------------------
 
 INSERT INTO tbusuario (nome, id_cargo, username, senha, id_role) values ('Fellipe', 1, 'fe', 'EE3E4AF9C48A69F5A5C47153EB4A777754BFBE6F', 1);
+GO
 INSERT INTO tbRole (descricao) VALUES ('ADMIN');
+GO
 INSERT INTO tbRole (descricao) VALUES ('COMUM');
 
 -------------------------------------------------------------------------------------------------
 
 
 
-select * from tbItem
+select * from tbCliente
 
-
+select * from tbPedido
 
 drop table tbusuario;
 
@@ -98,7 +104,9 @@ drop table tbusuario;
 select * from tbRole;
 
 
-select * from tbUsuario
+select * from tbOrcamento
+
+select * from tbOrcItm
 
 SELECT isnull(max(id)+1,1) as proximo from tbUsuario;
 
